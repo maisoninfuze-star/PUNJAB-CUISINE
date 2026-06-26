@@ -1,0 +1,233 @@
+/**
+ * French (Québec) translations for every menu item, keyed by item id.
+ * Indian proper nouns (samosa, pakora, lassi, biryani, naan, paneer, daal,
+ * tikka, korma…) are kept; the descriptive English around them is translated.
+ * Consumed by lib/i18n.tsx via `localizeItem()`.
+ */
+import type { Category } from './menu';
+
+export const CATEGORY_LABELS_FR: Record<Category, string> = {
+  soups: 'Soupes',
+  appetizers: 'Entrées',
+  'street-food': 'Cuisine de rue',
+  chicken: 'Poulet',
+  lamb: 'Agneau et chèvre',
+  beef: 'Bœuf',
+  seafood: 'Fruits de mer',
+  vegetarian: 'Végétarien',
+  chinese: 'Indo-chinois',
+  tandoori: 'Tandoori',
+  biryani: 'Biryani et riz',
+  thali: 'Thali',
+  breads: 'Pains',
+  desserts: 'Desserts',
+  drinks: 'Boissons',
+  extras: 'Extras',
+  combos: 'Combos',
+};
+
+export const MENU_FR: Record<string, { name: string; description: string }> = {
+  // Soups
+  'lentil-soup': { name: 'Soupe aux lentilles', description: 'Réconfortante soupe de lentilles jaunes parfumée au cumin et au gingembre.' },
+  'mulligatawny-soup': { name: 'Soupe Mulligatawny', description: 'Soupe épicée de lentilles et légumes, à la douce chaleur du sud de l’Inde.' },
+  'chicken-soup': { name: 'Soupe au poulet', description: 'Bouillon de poulet clair et parfumé, aux herbes et aux épices.' },
+
+  // Appetizers
+  'vegetable-samosa': { name: 'Samosa aux légumes (2 mcx)', description: 'Pâte croustillante garnie de pommes de terre épicées et de petits pois.' },
+  'samosa-chaat': { name: 'Samosa Chaat', description: 'Samosa écrasé garni de pois chiches, yogourt, chutneys et épices.' },
+  'chaat-papri': { name: 'Chaat Papri', description: 'Croustilles garnies de pois chiches, yogourt et chutneys acidulés.' },
+  'aloo-tikki': { name: 'Aloo Tikki (2 mcx)', description: 'Galettes de pommes de terre poêlées, croustillantes dehors, fondantes dedans.' },
+  'aloo-tikki-chaat': { name: 'Aloo Tikki Chaat', description: 'Galettes de pommes de terre garnies de pois chiches, yogourt et chutneys.' },
+  'chicken-pakora': { name: 'Pakora au poulet', description: 'Beignets de poulet dans une pâte épicée de farine de pois chiche, frits dorés.' },
+  'fish-pakora': { name: 'Pakora au poisson', description: 'Poisson en pâte de farine de pois chiche au carvi, frit croustillant.' },
+  'veggie-pakora': { name: 'Pakora aux légumes (6 mcx)', description: 'Beignets de légumes variés dans une pâte épicée croustillante.' },
+  'paneer-pakora': { name: 'Pakora au paneer', description: 'Beignets de fromage paneer dans une pâte légère et croustillante.' },
+  'onion-bhaji': { name: 'Bhaji à l’oignon (6 mcx)', description: 'Beignets d’oignon croustillants épicés au piment et à la coriandre.' },
+  'spring-roll': { name: 'Rouleaux impériaux (5 mcx)', description: 'Rouleaux croustillants farcis de légumes assaisonnés.' },
+  'bhel-puri': { name: 'Bhel Puri', description: 'Riz soufflé mélangé aux chutneys, à l’oignon et au croquant.' },
+  'french-fries': { name: 'Frites', description: 'Classiques frites dorées et croustillantes.' },
+  'soya-malai-chaap': { name: 'Soya Malai Chaap', description: 'Soya chaap mariné crémeux, grillé et tendre.' },
+  'shrimp-pakora': { name: 'Pakora aux crevettes (6 mcx)', description: 'Crevettes dodues en pâte épicée de farine de pois chiche, frites croustillantes.' },
+  'fish-pakora-1kg': { name: 'Pakora au poisson — 1 kg', description: 'Un kilo entier de pakora de poisson style Amritsari à partager.' },
+  'paneer-pakora-1kg': { name: 'Pakora au paneer — 1 kg', description: 'Un kilo entier de pakora au paneer — parfait pour un groupe.' },
+
+  // Street food
+  'chicken-kebab-roll': { name: 'Wrap au kebab de poulet', description: 'Kebab de poulet épicé enroulé dans un paratha moelleux.' },
+  'chole-bhatura': { name: 'Chole Bhatura', description: 'Cari de pois chiches épicé servi avec un bhatura frit moelleux.' },
+  'pani-puri': { name: 'Pani Puri', description: 'Puris croustillants creux à l’eau épicée tamarin-menthe.' },
+  'dahi-puri': { name: 'Dahi Puri', description: 'Puris croustillants garnis de pommes de terre, yogourt et chutneys.' },
+  'chicken-naan-roll': { name: 'Wrap naan au poulet', description: 'Poulet tandoori enroulé dans un naan chaud avec chutney.' },
+  'veg-naan-roll': { name: 'Wrap naan aux légumes', description: 'Légumes épicés enroulés dans un naan chaud.' },
+
+  // Chicken
+  'butter-chicken': { name: 'Poulet au beurre', description: 'Poulet rôti au tandoor dans une sauce onctueuse au beurre, tomate et fenugrec.' },
+  'chicken-curry': { name: 'Cari de poulet', description: 'Cari de poulet punjabi maison, mijoté longuement aux épices entières.' },
+  'chicken-tikka-masala': { name: 'Poulet Tikka Masala', description: 'Tikka grillé dans un masala d’oignon épicé et crémeux.' },
+  'chicken-vindaloo': { name: 'Poulet Vindaloo', description: 'Cari ardent style goan au vinaigre et au piment rouge.' },
+  'chicken-karahi': { name: 'Poulet Karahi', description: 'Poulet sauté au wok avec poivrons, tomate et gingembre.' },
+  'chicken-saag': { name: 'Poulet Saag', description: 'Poulet mijoté dans une sauce d’épinards épicée et soyeuse.' },
+  'chicken-korma': { name: 'Korma de poulet', description: 'Korma doux aux noix, parfumé à la cardamome.' },
+  'chicken-daal': { name: 'Poulet Daal', description: 'Poulet cuit avec des lentilles et des épices réconfortantes.' },
+  'chicken-madras': { name: 'Poulet Madras', description: 'Cari relevé du sud de l’Inde au coco et au piment rouge.' },
+  'south-indian-chicken': { name: 'Poulet du sud de l’Inde', description: 'Poulet au lait de coco et aux feuilles de cari.' },
+  'coconut-chicken-curry': { name: 'Cari de poulet au coco', description: 'Poulet dans un cari doux au lait de coco.' },
+  'chicken-jalfrezi': { name: 'Poulet Jalfrezi', description: 'Poulet sauté aux poivrons, oignon et piment vert.' },
+  'chicken-mango': { name: 'Poulet à la mangue', description: 'Poulet dans une sauce sucrée-salée à la mangue.' },
+  'chicken-mughlai': { name: 'Poulet Mughlai', description: 'Poulet royal style moghol dans une sauce crémeuse aux noix.' },
+  'chicken-kabab-masala': { name: 'Poulet Kabab Masala', description: 'Kebab de poulet grillé enrobé d’un masala épicé.' },
+  'chicken-pasanda': { name: 'Poulet Pasanda', description: 'Poulet dans une sauce pasanda luxueuse aux amandes et à la crème.' },
+  'chicken-do-pyaja': { name: 'Poulet Do Pyaja', description: 'Poulet cuit deux fois avec des oignons caramélisés.' },
+
+  // Lamb & Goat
+  'coconut-lamb-curry': { name: 'Cari d’agneau au coco', description: 'Agneau tendre dans un cari parfumé au lait de coco.' },
+  'lamb-vindaloo': { name: 'Agneau Vindaloo', description: 'Cari d’agneau ardent au vinaigre et au piment, style goan.' },
+  'lamb-saag': { name: 'Agneau Saag', description: 'Agneau braisé dans une sauce d’épinards épicée et soyeuse.' },
+  'lamb-madras': { name: 'Agneau Madras', description: 'Cari d’agneau relevé du sud au coco et au piment.' },
+  'lamb-chili': { name: 'Agneau au piment', description: 'Agneau sauté aux poivrons, oignon et piment vert.' },
+  'lamb-jalfrezi': { name: 'Agneau Jalfrezi', description: 'Agneau sauté aux poivrons et aux épices.' },
+  'lamb-achari': { name: 'Agneau Achari', description: 'Agneau dans une sauce acidulée aux épices à marinade.' },
+  'south-indian-mutton': { name: 'Mouton du sud de l’Inde', description: 'Mouton avec os dans une sauce poivrée aux feuilles de cari.' },
+  'lamb-karahi': { name: 'Agneau Karahi', description: 'Agneau sauté au wok avec tomate, gingembre et poivrons.' },
+  'lamb-kabab-masala': { name: 'Agneau Kabab Masala', description: 'Kebab d’agneau grillé dans un masala riche et épicé.' },
+  'lamb-pasanda': { name: 'Agneau Pasanda', description: 'Agneau dans une sauce pasanda luxueuse aux amandes et à la crème.' },
+  'lamb-chettinad': { name: 'Agneau Chettinad', description: 'Agneau Chettinad poivré et aromatique du Tamil Nadu.' },
+  'lamb-do-pyaja': { name: 'Agneau Do Pyaja', description: 'Agneau cuit deux fois avec des oignons caramélisés.' },
+  'lamb-bangalori': { name: 'Agneau Bangalori Pal', description: 'Agneau style Bangalore dans une sauce régionale épicée.' },
+  'goat-curry': { name: 'Cari de chèvre', description: 'Chèvre avec os mijotée longuement dans un cari maison robuste.' },
+  'goat-korma': { name: 'Korma de chèvre', description: 'Chèvre dans un korma doux et velouté aux noix.' },
+
+  // Beef
+  'beef-curry': { name: 'Cari de bœuf', description: 'Bœuf tendre mijoté dans un cari punjabi robuste.' },
+  'beef-vindaloo': { name: 'Bœuf Vindaloo', description: 'Cari de bœuf ardent au vinaigre et au piment.' },
+  'beef-tikka-masala': { name: 'Bœuf Tikka Masala', description: 'Bœuf grillé dans un masala épicé et crémeux.' },
+  'beef-korma': { name: 'Korma de bœuf', description: 'Bœuf dans un korma doux et velouté aux noix.' },
+  'beef-kabab-masala': { name: 'Bœuf Kabab Masala', description: 'Kebab de bœuf grillé dans un masala riche et épicé.' },
+  'beef-pasanda': { name: 'Bœuf Pasanda', description: 'Bœuf dans une sauce pasanda luxueuse aux amandes et à la crème.' },
+  'beef-chettinad': { name: 'Bœuf Chettinad', description: 'Bœuf style Chettinad, poivré et aromatique.' },
+  'beef-do-pyaja': { name: 'Bœuf Do Pyaja', description: 'Bœuf cuit deux fois avec des oignons caramélisés.' },
+  'beef-bangalori': { name: 'Bœuf Bangalori Pal', description: 'Bœuf style Bangalore dans une sauce régionale épicée.' },
+
+  // Seafood
+  'shrimp-curry': { name: 'Cari de crevettes', description: 'Crevettes dans un cari d’oignon et tomate riche en coriandre.' },
+  'shrimp-saag': { name: 'Crevettes Saag', description: 'Crevettes mijotées dans une sauce d’épinards épicée et soyeuse.' },
+  'shrimp-korma': { name: 'Korma de crevettes', description: 'Crevettes dans un korma doux et velouté aux noix.' },
+  'shrimp-masala': { name: 'Crevettes Masala', description: 'Crevettes dans un masala épicé d’oignon et tomate.' },
+  'shrimp-karahi': { name: 'Crevettes Karahi', description: 'Crevettes sautées au wok avec poivrons et gingembre.' },
+  'shrimp-vindaloo': { name: 'Crevettes Vindaloo', description: 'Cari de crevettes ardent au vinaigre et au piment.' },
+  'fish-curry': { name: 'Cari de poisson', description: 'Filets de poisson dans un cari d’oignon et tomate riche en coriandre.' },
+  'fish-saag': { name: 'Poisson Saag', description: 'Poisson dans une sauce d’épinards épicée et soyeuse.' },
+  'fish-tikka-masala': { name: 'Poisson Tikka Masala', description: 'Poisson grillé dans un masala épicé et crémeux.' },
+
+  // Vegetarian
+  'palak-paneer': { name: 'Palak Paneer', description: 'Fromage paneer dans une sauce d’épinards épicée et soyeuse.' },
+  'paneer-kadai': { name: 'Paneer Kadai', description: 'Paneer sauté au wok avec poivrons, tomate et épices.' },
+  'paneer-tikka-masala': { name: 'Paneer Tikka Masala', description: 'Paneer grillé dans un masala épicé et crémeux.' },
+  'paneer-makhani': { name: 'Paneer Makhani', description: 'Paneer dans une sauce beurrée à la tomate et au fenugrec.' },
+  'mattar-paneer': { name: 'Mattar Paneer', description: 'Paneer et petits pois dans une sauce épicée d’oignon et tomate.' },
+  'paneer-korma': { name: 'Korma de paneer', description: 'Paneer dans un korma doux et velouté aux noix.' },
+  'shahi-paneer': { name: 'Shahi Paneer', description: 'Sauce royale aux noix de cajou et safran enrobant un paneer fondant.' },
+  'daal-tarka': { name: 'Daal Tarka', description: 'Lentilles jaunes relevées à l’ail, au gingembre et aux épices.' },
+  'daal-makhani': { name: 'Daal Makhani', description: 'Lentilles noires mijotées toute la nuit au beurre et à la crème.' },
+  'mixed-vegetables': { name: 'Légumes mélangés', description: 'Légumes de saison dans une sauce épicée d’oignon et tomate.' },
+  'malai-kofta': { name: 'Malai Kofta', description: 'Boulettes de paneer et pomme de terre dans une sauce crémeuse veloutée.' },
+  'aloo-palak': { name: 'Aloo Palak', description: 'Pommes de terre dans une sauce d’épinards épicée et soyeuse.' },
+  'aloo-gobi': { name: 'Aloo Gobi', description: 'Pommes de terre et chou-fleur sautés aux herbes et aux épices.' },
+  'aloo-mattar': { name: 'Aloo Mattar', description: 'Pommes de terre et petits pois dans une sauce épicée d’oignon et tomate.' },
+  'shahi-navratan-korma': { name: 'Shahi Navratan Korma', description: 'Neuf légumes dans un korma crémeux et légèrement sucré.' },
+  'bhindi-masala': { name: 'Bhindi Masala', description: 'Gombo sauté à l’oignon, tomate et épices aromatiques.' },
+  'sarson-da-saag': { name: 'Sarson Da Saag', description: 'Feuilles de moutarde mijotées longuement, finies au beurre blanc.' },
+  'vegetable-korma': { name: 'Korma de légumes', description: 'Légumes variés dans un korma crémeux aux noix de cajou.' },
+  'soya-chaap-masala': { name: 'Soya Chaap Masala', description: 'Soya chaap dans un masala riche d’oignon et tomate.' },
+  'paneer-pasanda': { name: 'Paneer Pasanda', description: 'Paneer farci dans une sauce luxueuse aux amandes et à la crème.' },
+
+  // Indo-Chinese
+  'chili-chicken': { name: 'Poulet au piment', description: 'Poulet croustillant sauté dans une sauce épicée chili-ail.' },
+  'chili-paneer': { name: 'Paneer au piment', description: 'Paneer croustillant sauté dans une sauce épicée chili-soya.' },
+  'chicken-manchurian': { name: 'Poulet Manchurian', description: 'Boulettes de poulet dans une sauce épicée ail-gingembre.' },
+  'veg-manchurian': { name: 'Manchurian aux légumes', description: 'Boulettes de légumes dans une sauce épicée ail-gingembre.' },
+  'chicken-65': { name: 'Poulet 65', description: 'Poulet frit épicé du sud de l’Inde aux feuilles de cari.' },
+  'chicken-fried-rice': { name: 'Riz frit au poulet', description: 'Riz sauté au wok avec poulet, œuf et légumes.' },
+  'egg-fried-rice': { name: 'Riz frit à l’œuf', description: 'Riz sauté au wok avec œuf et légumes.' },
+  'veg-fried-rice': { name: 'Riz frit aux légumes', description: 'Riz sauté au wok avec légumes variés.' },
+  'veg-noodles': { name: 'Nouilles aux légumes', description: 'Nouilles sautées aux légumes variés.' },
+
+  // Tandoori
+  'chicken-seekh-kebab': { name: 'Seekh Kebab de poulet (5)', description: 'Brochettes de poulet haché épicé saisies au four d’argile.' },
+  'lamb-seekh-kebab': { name: 'Seekh Kebab d’agneau (5)', description: 'Brochettes d’agneau haché épicé saisies au four d’argile.' },
+  'achar-paneer-tandoori': { name: 'Achar Paneer Tandoori', description: 'Paneer aux épices à marinade grillé au tandoor.' },
+  'half-chicken-tandoori': { name: 'Demi-poulet tandoori', description: 'Demi-poulet mariné toute la nuit et saisi au four d’argile.' },
+  'whole-tandoori-chicken': { name: 'Poulet tandoori entier', description: 'Poulet entier avec os, laqué rouge et cuit au tandoor.' },
+  'tandoori-shrimp': { name: 'Crevettes tandoori', description: 'Crevettes tigrées en marinade safran-yogourt, saisies au four d’argile.' },
+  'fish-tikka': { name: 'Tikka de poisson', description: 'Poisson mariné grillé au tandoor.' },
+  'chicken-tikka': { name: 'Tikka de poulet', description: 'Poulet désossé en marinade yogourt-épices, grillé au charbon.' },
+  'hariyali-tikka': { name: 'Hariyali Tikka', description: 'Poulet dans une marinade fraîche à la menthe et coriandre.' },
+
+  // Biryani & Rice
+  'chicken-biryani-bone': { name: 'Dum Biryani au poulet (avec os)', description: 'Poulet avec os en couches de basmati au safran, cuit en dum.' },
+  'chicken-biryani': { name: 'Biryani au poulet', description: 'Basmati parfumé au safran en couches avec poulet épicé.' },
+  'lamb-biryani': { name: 'Biryani à l’agneau', description: 'Basmati au safran en couches avec agneau tendre épicé.' },
+  'shrimp-biryani': { name: 'Biryani aux crevettes', description: 'Basmati au safran en couches avec crevettes épicées.' },
+  'goat-biryani': { name: 'Biryani à la chèvre', description: 'Basmati au safran en couches avec chèvre avec os.' },
+  'beef-biryani': { name: 'Biryani au bœuf', description: 'Basmati au safran en couches avec bœuf épicé.' },
+  'veg-biryani': { name: 'Biryani aux légumes', description: 'Basmati au safran en couches avec légumes de saison épicés.' },
+  'rice': { name: 'Riz vapeur', description: 'Riz basmati vapeur léger et moelleux.' },
+  'pulao-rice': { name: 'Riz Pulao', description: 'Riz basmati délicatement parfumé aux aromates entiers.' },
+  'veg-pulao': { name: 'Pulao aux légumes', description: 'Pulao basmati aux petits pois et légumes de saison.' },
+
+  // Thali
+  'veggie-thali': { name: 'Thali végétarien', description: 'Assiette complète : cari, daal, riz, naan, dessert et accompagnements.' },
+  'non-veg-thali': { name: 'Thali non végétarien', description: 'Assiette complète avec cari de viande, riz, naan et accompagnements.' },
+  'lamb-thali': { name: 'Thali à l’agneau', description: 'Généreux festin d’agneau avec riz, naan, dessert et accompagnements.' },
+
+  // Breads
+  'butter-naan': { name: 'Naan au beurre', description: 'Naan moelleux cuit au tandoor et badigeonné de beurre.' },
+  'garlic-naan': { name: 'Naan à l’ail', description: 'Naan parsemé d’ail et de coriandre fraîche.' },
+  'aloo-naan': { name: 'Aloo Naan', description: 'Naan farci de purée de pommes de terre épicée.' },
+  'paneer-cheese-naan': { name: 'Naan paneer et fromage', description: 'Naan farci de paneer et de fromage fondant.' },
+  'keema-naan': { name: 'Keema Naan', description: 'Naan farci de viande hachée épicée.' },
+  'chicken-naan': { name: 'Naan au poulet', description: 'Naan farci de poulet épicé.' },
+  'onion-cheese-naan': { name: 'Naan oignon et fromage', description: 'Naan garni d’oignon et de fromage fondant.' },
+  'lacha-paratha': { name: 'Lacha Paratha', description: 'Pain de blé entier feuilleté et croustillant cuit sur plaque.' },
+  'ogeenu-kulcha': { name: 'Kulcha à l’oignon', description: 'Pain levé moelleux farci d’oignon épicé.' },
+  'tandoori-roti': { name: 'Tandoori Roti', description: 'Pain plat de blé entier cuit au four d’argile.' },
+  'amritsari-kulcha-1': { name: 'Kulcha Amritsari (1 mcx)', description: 'Kulcha farci croustillant style Amritsar.' },
+  'amritsari-kulcha-2': { name: 'Kulcha Amritsari (2 mcx)', description: 'Deux kulchas farcis croustillants style Amritsar.' },
+  'paneer-prantha': { name: 'Paratha au paneer', description: 'Paratha de blé entier farci de paneer épicé.' },
+  'aloo-prantha-tandoori': { name: 'Aloo Paratha', description: 'Paratha au tandoor farci de pommes de terre épicées.' },
+  'bathura': { name: 'Bathura', description: 'Pain levé frit, moelleux et gonflé.' },
+
+  // Desserts
+  'gulab-jamun': { name: 'Gulab Jamun', description: 'Boulettes de lait chaudes imbibées de sirop rose-cardamome.' },
+  'rasmalai': { name: 'Rasmalai', description: 'Disques de fromage dans un lait safran-cardamome aux pistaches.' },
+  'kheer': { name: 'Kheer', description: 'Pouding de riz mijoté à la cardamome et aux noix.' },
+
+  // Drinks
+  'mango-lassi': { name: 'Lassi à la mangue', description: 'Mangue Alphonso fouettée avec yogourt épais et cardamome.' },
+  'sweet-lassi': { name: 'Lassi sucré', description: 'Classique boisson de yogourt baratté, sucrée.' },
+  'salty-lassi': { name: 'Lassi salé', description: 'Boisson de yogourt baratté salée, avec une pointe de cumin.' },
+  'mango-shake': { name: 'Lait frappé à la mangue', description: 'Lait frappé à la mangue épais et crémeux.' },
+  'rose-milk': { name: 'Lait à la rose', description: 'Lait glacé parfumé à la rose.' },
+  'masala-tea': { name: 'Chai Masala', description: 'Thé d’Assam infusé au lait, gingembre et garam masala.' },
+  'soft-drink': { name: 'Boisson gazeuse', description: 'Boisson gazeuse en canette, bien froide.' },
+  'water': { name: 'Eau embouteillée', description: 'Eau de source embouteillée.' },
+
+  // Extras
+  'salad': { name: 'Salade verte', description: 'Salade fraîche et croquante à l’oignon, tomate et citron.' },
+  'raita': { name: 'Raita', description: 'Yogourt épicé rafraîchissant au concombre.' },
+  'butter-sauce': { name: 'Sauce au beurre (extra)', description: 'Un accompagnement de riche sauce makhani au beurre.' },
+  'yogurt': { name: 'Yogourt', description: 'Un accompagnement de yogourt nature frais.' },
+  'mango-chutney': { name: 'Chutney à la mangue', description: 'Chutney à la mangue sucré et acidulé.' },
+  'mix-pickle': { name: 'Marinade mélangée', description: 'Marinade indienne acidulée et épicée.' },
+  'side-rice': { name: 'Riz (accompagnement)', description: 'Un petit accompagnement de riz vapeur.' },
+
+  // Combos
+  'combo-a': { name: 'Combo A (1 personne)', description: 'Bhaji à l’oignon, cari d’agneau, riz, papadum, dessert et boisson.' },
+  'combo-b': { name: 'Combo B (1 personne)', description: 'Kebab de poulet, poulet au beurre, riz, papadum, dessert et boisson.' },
+  'combo-c': { name: 'Combo C (1 personne)', description: 'Samosa, poulet tikka masala, riz, papadum, dessert et boisson.' },
+  'combo-d-veggie': { name: 'Combo D Végé (1 personne)', description: 'Pakora de légumes, malai kofta, riz, papadum, dessert et boisson.' },
+  'combo-aa': { name: 'Combo AA (2 personnes)', description: 'Bhaji, seekh kabab, poulet tandoori, cari d’agneau, riz et accompagnements pour deux.' },
+  'combo-bb-veggie': { name: 'Combo BB Végé (2 personnes)', description: 'Pakora, paneer, malai kofta, naan ou riz, accompagnements pour deux.' },
+  'combo-cc': { name: 'Combo CC (2 personnes)', description: 'Samosa, seekh kabab, poulet tikka masala, agneau bhuna, palak paneer pour deux.' },
+  'combo-dd-veggie': { name: 'Combo DD Végé (2 personnes)', description: 'Pakora, bhaji, malai kofta, daal tarka, riz, accompagnements pour deux.' },
+  'family-deal': { name: 'Forfait familial (6 personnes)', description: '6 samosas, poulet au beurre, poulet tandoori, chana masala, légumes, 3 riz, 6 naans et dessert.' },
+};

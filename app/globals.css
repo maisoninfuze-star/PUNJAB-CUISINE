@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c96d;
+  --gold-deep: #a07830;
+  --ink: #0a0a0a;
+  --cream: #f5f2ec;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Lenis manages scroll; disable native smooth when active. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-ink text-cream font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: #0a0a0a;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2620;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-deep);
+  }
+}
+
+@layer components {
+  /* Tiny uppercase tracked eyebrow label */
+  .eyebrow {
+    @apply font-sans text-[0.7rem] uppercase tracking-label text-gold/80;
+  }
+
+  /* Editorial container */
+  .container-editorial {
+    @apply mx-auto w-full max-w-editorial px-6 md:px-10;
+  }
+
+  /* Masked line reveal primitives (JS toggles .is-revealed on parent) */
+  .line-mask {
+    @apply block overflow-hidden;
+  }
+  .line-inner {
+    @apply block translate-y-full;
+    transition: transform 1s var(--ease-expo);
+  }
+  .is-revealed .line-inner {
+    @apply translate-y-0;
+  }
+
+  /* Generic scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(38px);
+    transition:
+      opacity 0.9s var(--ease-expo),
+      transform 0.9s var(--ease-expo);
+    will-change: opacity, transform;
+  }
+  .reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Gold hairline divider that draws itself */
+  .gold-rule {
+    @apply h-px w-full origin-left scale-x-0 bg-gradient-to-r from-transparent via-gold to-transparent;
+    transition: transform 1.4s var(--ease-expo);
+  }
+  .gold-rule.is-revealed {
+    @apply scale-x-100;
+  }
+
+  /* Gold shimmer text used for accents */
+  .text-gold-shimmer {
+    background: linear-gradient(
+      100deg,
+      var(--gold-deep) 20%,
+      var(--gold-light) 45%,
+      #fff7e0 50%,
+      var(--gold-light) 55%,
+      var(--gold-deep) 80%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    @apply animate-shimmer;
+  }
+
+  /* Primary gold button */
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5
+      text-sm font-medium tracking-wide text-ink transition-all duration-300;
+  }
+  .btn-gold:hover {
+    @apply -translate-y-0.5 bg-gold-light shadow-[0_12px_40px_-12px_rgba(201,168,76,0.7)];
+  }
+
+  /* Ghost / outline button */
+  .btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-gold/40
+      px-7 py-3.5 text-sm font-medium tracking-wide text-cream transition-all duration-300;
+  }
+  .btn-ghost:hover {
+    @apply -translate-y-0.5 border-gold text-gold;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Faint oversized ghost word behind content */
+  .ghost-word {
+    @apply pointer-events-none select-none font-display font-bold uppercase leading-none text-white/[0.03];
+  }
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* View Transitions — refined fade + lift between pages (Zimmerl-style) */
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-14px); }
+}
+::view-transition-old(root) {
+  animation: vt-fade-out 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  .line-inner,
+  .gold-rule {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
