@@ -139,6 +139,9 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   'vegetable-korma': { name: 'Korma de légumes', description: 'Légumes variés dans un korma crémeux aux noix de cajou.' },
   'soya-chaap-masala': { name: 'Soya Chaap Masala', description: 'Soya chaap dans un masala riche d’oignon et tomate.' },
   'paneer-pasanda': { name: 'Paneer Pasanda', description: 'Paneer farci dans une sauce luxueuse aux amandes et à la crème.' },
+  'paneer-bhurji': { name: 'Paneer Bhurji', description: 'Cottage cheese émietté sauté avec oignons, tomates et épices.' },
+  'baingan-bharta': { name: 'Aubergine Rôtie (Baingan Bharta)', description: "Aubergine grillée à la flamme, écrasée avec oignons, tomates et épices." },
+  'channa-masala': { name: 'Channa Masala', description: "Curry de pois chiches mijotés dans un masala d'oignon-tomate acidulé." },
 
   // Indo-Chinese
   'chili-chicken': { name: 'Poulet au piment', description: 'Poulet croustillant sauté dans une sauce épicée chili-ail.' },

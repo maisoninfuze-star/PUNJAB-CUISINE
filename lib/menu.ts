@@ -183,6 +183,9 @@ export const MENU: MenuItem[] = [
   i('vegetable-korma', 'Vegetable Korma', 11.99, 'vegetarian', 'Mixed vegetables in a creamy cashew korma.', { vegetarian: true, spice: 1 }),
   i('soya-chaap-masala', 'Soya Chaap Masala', 11.99, 'vegetarian', 'Soya chaap in a rich onion-tomato masala.', { vegetarian: true, spice: 2 }),
   i('paneer-pasanda', 'Paneer Pasanda', 16.99, 'vegetarian', 'Stuffed paneer in a luxurious almond-cream gravy.', { vegetarian: true, spice: 1 }),
+  i('paneer-bhurji', 'Paneer Bhurji', 13.99, 'vegetarian', 'Crumbled cottage cheese scrambled with onions, tomatoes and spices.', { vegetarian: true, spice: 2 }),
+  i('baingan-bharta', 'Mashed Eggplant (Baingan Bharta)', 12.99, 'vegetarian', 'Flame-roasted eggplant mashed with onions, tomatoes and aromatic spices.', { vegetarian: true, spice: 2 }),
+  i('channa-masala', 'Channa Masala', 10.99, 'vegetarian', 'Hearty chickpea curry slow-cooked in a tangy onion-tomato masala.', { vegetarian: true, spice: 2 }),
 
   // ── Indo-Chinese ────────────────────────────────────────────
   i('chili-chicken', 'Chili Chicken', 13.99, 'chinese', 'Crisp chicken tossed in a spicy chilli-garlic sauce.', { spice: 3 }),
