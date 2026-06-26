@@ -6,12 +6,6 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-mot
 import { useLenis } from '@/components/providers/SmoothScroll';
 import { useI18n } from '@/lib/i18n';
 
-function useIsMobile() {
-  const [mobile, setMobile] = useState(false);
-  useEffect(() => { setMobile(window.innerWidth < 768); }, []);
-  return mobile;
-}
-
 /**
  * Cinematic scroll-scrubbed hero. A short clip is pinned via position:sticky;
  * scroll progress drives video.currentTime through an rAF lerp so the footage
@@ -25,7 +19,6 @@ export function HeroVideo() {
   const [hasVideo, setHasVideo] = useState(true);
   const targetTime = useRef(0);
   const rafActive = useRef(false);
-  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -43,7 +36,7 @@ export function HeroVideo() {
   // Scroll-scrub only on desktop — iOS blocks currentTime without a user gesture.
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     const v = videoRef.current;
-    if (!v || reduced || !v.duration || isMobile) return;
+    if (!v || reduced || !v.duration || window.innerWidth < 768) return;
     targetTime.current = Math.min(v.duration - 0.05, p * v.duration);
     if (!rafActive.current) {
       rafActive.current = true;
@@ -61,7 +54,7 @@ export function HeroVideo() {
   });
 
   return (
-    <section ref={sectionRef} className={`relative ${isMobile ? 'h-screen' : 'h-[260vh]'}`}>
+    <section ref={sectionRef} className="relative h-screen md:h-[260vh]">
       {/* Pinned cinematic stage */}
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {/* Video / poster */}
@@ -73,14 +66,16 @@ export function HeroVideo() {
             poster="/hero/hero-poster.jpg"
             muted
             playsInline
+            autoPlay
+            loop
             preload="auto"
-            autoPlay={isMobile}
-            loop={isMobile}
             onError={() => setHasVideo(false)}
             onLoadedMetadata={(e) => {
-              if (isMobile) return; // let it autoplay on mobile
-              e.currentTarget.pause();
-              e.currentTarget.currentTime = 0;
+              // On desktop, pause immediately so scroll-scrub controls playback
+              if (window.innerWidth >= 768) {
+                e.currentTarget.pause();
+                e.currentTarget.currentTime = 0;
+              }
             }}
           />
         ) : (
