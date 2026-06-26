@@ -6,6 +6,12 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-mot
 import { useLenis } from '@/components/providers/SmoothScroll';
 import { useI18n } from '@/lib/i18n';
 
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => { setMobile(window.innerWidth < 768); }, []);
+  return mobile;
+}
+
 /**
  * Cinematic scroll-scrubbed hero. A short clip is pinned via position:sticky;
  * scroll progress drives video.currentTime through an rAF lerp so the footage
@@ -19,13 +25,13 @@ export function HeroVideo() {
   const [hasVideo, setHasVideo] = useState(true);
   const targetTime = useRef(0);
   const rafActive = useRef(false);
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
 
-  // Headline + chrome ride the scroll subtly (parallax + fade as the clip pushes in).
   const titleY = useTransform(scrollYProgress, [0, 1], ['0%', '-22%']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0]);
   const scrimOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.85]);
@@ -34,10 +40,10 @@ export function HeroVideo() {
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
-  // Smoothly chase the scroll-derived target time for jitter-free scrubbing.
+  // Scroll-scrub only on desktop — iOS blocks currentTime without a user gesture.
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     const v = videoRef.current;
-    if (!v || reduced || !v.duration) return;
+    if (!v || reduced || !v.duration || isMobile) return;
     targetTime.current = Math.min(v.duration - 0.05, p * v.duration);
     if (!rafActive.current) {
       rafActive.current = true;
@@ -55,21 +61,24 @@ export function HeroVideo() {
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[260vh]">
+    <section ref={sectionRef} className={`relative ${isMobile ? 'h-screen' : 'h-[260vh]'}`}>
       {/* Pinned cinematic stage */}
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {/* Video / poster */}
         {hasVideo && !reduced ? (
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-center"
             src="/hero/hero.mp4"
             poster="/hero/hero-poster.jpg"
             muted
             playsInline
             preload="auto"
+            autoPlay={isMobile}
+            loop={isMobile}
             onError={() => setHasVideo(false)}
             onLoadedMetadata={(e) => {
+              if (isMobile) return; // let it autoplay on mobile
               e.currentTarget.pause();
               e.currentTarget.currentTime = 0;
             }}
@@ -171,7 +180,7 @@ function Headline() {
       {lines.map((word, i) => (
         <span key={i} className="block overflow-hidden">
           <motion.span
-            className="block text-[19vw] md:text-[14vw] lg:text-[12rem]"
+            className="block text-[15vw] md:text-[14vw] lg:text-[12rem]"
             initial={{ y: '110%' }}
             animate={{ y: 0 }}
             transition={{ delay: 0.5 + i * 0.13, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
