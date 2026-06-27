@@ -92,7 +92,7 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   'lamb-pasanda': { name: 'Agneau Pasanda', description: 'Agneau dans une sauce pasanda luxueuse aux amandes et à la crème.' },
   'lamb-chettinad': { name: 'Agneau Chettinad', description: 'Agneau Chettinad poivré et aromatique du Tamil Nadu.' },
   'lamb-do-pyaja': { name: 'Agneau Do Pyaja', description: 'Agneau cuit deux fois avec des oignons caramélisés.' },
-  'lamb-bangalori': { name: 'Agneau Bangalori Pal', description: 'Agneau style Bangalore dans une sauce régionale épicée.' },
+  'lamb-tikka-masala': { name: 'Agneau Tikka Masala', description: "Agneau grillé dans un masala crémeux et épicé aux tomates." },
   'goat-curry': { name: 'Cari de chèvre', description: 'Chèvre avec os mijotée longuement dans un cari maison robuste.' },
   'goat-korma': { name: 'Korma de chèvre', description: 'Chèvre dans un korma doux et velouté aux noix.' },
 

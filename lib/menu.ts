@@ -136,7 +136,7 @@ export const MENU: MenuItem[] = [
   i('lamb-pasanda', 'Lamb Pasanda', 16.99, 'lamb', 'Lamb in a luxurious almond-cream pasanda gravy.', { spice: 1 }),
   i('lamb-chettinad', 'Lamb Chettinad', 16.99, 'lamb', 'Peppery, aromatic Chettinad lamb from Tamil Nadu.', { spice: 3 }),
   i('lamb-do-pyaja', 'Lamb Do Pyaja', 16.99, 'lamb', 'Lamb cooked twice with sweet caramelised onions.', { spice: 2 }),
-  i('lamb-bangalori', 'Lamb Bangalori Pal', 13.99, 'lamb', 'Bangalore-style lamb in a spiced regional gravy.', { spice: 2 }),
+  i('lamb-tikka-masala', 'Lamb Tikka Masala', 13.99, 'lamb', 'Char-grilled lamb in a spiced, cream-finished tomato masala.', { spice: 2 }),
   i('goat-curry', 'Goat Curry', 16.99, 'lamb', 'Bone-in goat slow-cooked in a robust home-style curry.', { spice: 2, signature: true }),
   i('goat-korma', 'Goat Korma', 16.99, 'lamb', 'Goat in a mellow, nut-thickened korma.', { spice: 1 }),
 
