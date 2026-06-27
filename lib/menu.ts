@@ -104,7 +104,7 @@ export const MENU: MenuItem[] = [
   i('veg-naan-roll', 'Veg Naan Roll', 7.99, 'street-food', 'Spiced vegetables wrapped in warm naan.', { vegetarian: true, spice: 1 }),
 
   // ── Chicken ─────────────────────────────────────────────────
-  i('butter-chicken', 'Butter Chicken', 19.99, 'chicken', 'Tandoor-roasted chicken in a silken tomato-fenugreek butter gravy.', { spice: 1, signature: true }),
+  i('butter-chicken', 'Butter Chicken', 16.99, 'chicken', 'Tandoor-roasted chicken in a silken tomato-fenugreek butter gravy.', { spice: 1, signature: true }),
   i('chicken-curry', 'Chicken Curry', 13.99, 'chicken', 'Home-style Punjabi chicken curry, slow-cooked with whole spices.', { spice: 2 }),
   i('chicken-tikka-masala', 'Chicken Tikka Masala', 12.99, 'chicken', 'Char-grilled tikka in a spiced, cream-finished onion masala.', { spice: 2 }),
   i('chicken-vindaloo', 'Chicken Vindaloo', 12.99, 'chicken', 'Fiery Goan-style curry with vinegar and red chilli.', { spice: 3 }),
