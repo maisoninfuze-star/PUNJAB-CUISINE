@@ -30,6 +30,17 @@ export function Loader({ onComplete }: LoaderProps) {
 
   useEffect(() => setMounted(true), []);
 
+  // Dismiss on ANY user interaction — guarantees the user is never trapped
+  // behind the overlay even if timers are throttled (embedded webviews pause
+  // background setTimeout/rAF, which can otherwise leave the intro stuck).
+  useEffect(() => {
+    const dismiss = () => setVisible(false);
+    const opts = { passive: true } as AddEventListenerOptions;
+    const events = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'];
+    events.forEach((e) => window.addEventListener(e, dismiss, opts));
+    return () => events.forEach((e) => window.removeEventListener(e, dismiss, opts));
+  }, []);
+
   // Safety net: force-unmount shortly after hiding, even if the framer-motion
   // exit animation never fires onExitComplete (e.g. interrupted / throttled).
   useEffect(() => {
