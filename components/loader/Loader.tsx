@@ -23,11 +23,20 @@ interface LoaderProps {
  */
 export function Loader({ onComplete }: LoaderProps) {
   const [visible, setVisible] = useState(true);
+  const [removed, setRemoved] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { lenis } = useLenis();
   const { t } = useI18n();
 
   useEffect(() => setMounted(true), []);
+
+  // Safety net: force-unmount shortly after hiding, even if the framer-motion
+  // exit animation never fires onExitComplete (e.g. interrupted / throttled).
+  useEffect(() => {
+    if (visible) return;
+    const t = setTimeout(() => setRemoved(true), 1100);
+    return () => clearTimeout(t);
+  }, [visible]);
 
   const particles = useMemo(
     () =>
@@ -41,20 +50,35 @@ export function Loader({ onComplete }: LoaderProps) {
     []
   );
 
+  // One-shot reveal timer — empty deps so it fires exactly once and can never
+  // be reset by context/identity churn (that was freezing the loader open).
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.body.style.overflow = 'hidden';
-    lenis?.stop();
-    const total = reduced ? 300 : 2800;
+    const total = reduced ? 300 : 2600;
     const timer = setTimeout(() => setVisible(false), total);
     return () => clearTimeout(timer);
-  }, [lenis]);
+  }, []);
+
+  // Lock scroll while visible; restore the instant it hides — independent of
+  // the exit animation completing, so a hung/interrupted exit can't freeze the
+  // page with overflow:hidden + Lenis stopped.
+  useEffect(() => {
+    if (visible) {
+      document.body.style.overflow = 'hidden';
+      lenis?.stop();
+    } else {
+      document.body.style.overflow = '';
+      lenis?.start();
+    }
+  }, [visible, lenis]);
 
   function handleExitComplete() {
     document.body.style.overflow = '';
     lenis?.start();
     onComplete?.();
   }
+
+  if (removed) return null;
 
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>
