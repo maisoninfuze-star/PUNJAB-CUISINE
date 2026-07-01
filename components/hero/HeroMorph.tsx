@@ -121,8 +121,8 @@ export function HeroMorph() {
             </motion.span>
           </div>
 
-          {/* Dish scene labels — each crossfades within its scroll window */}
-          <div className="absolute inset-x-0 bottom-[16%] z-10 flex flex-col items-center text-center">
+          {/* Dish scene labels — sit in the upper band, above the pot */}
+          <div className="absolute inset-x-0 top-[17%] z-10 flex flex-col items-center text-center md:top-[19%]">
             {SCENES.map((s) => (
               <SceneLabel key={s.key} scene={s} progress={scrollYProgress} />
             ))}
