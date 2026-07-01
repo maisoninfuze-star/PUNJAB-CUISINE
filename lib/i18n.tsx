@@ -26,6 +26,8 @@ const DICT: Record<Lang, Record<string, string>> = {
     'hero.order': 'Order Pickup',
     'hero.viewMenu': 'View Menu',
     'hero.scroll': 'Scroll',
+    'hero.tagline2': 'Experience Punjab on Every Plate',
+    'hero.craftedLive': 'Crafted before your eyes',
 
     'exp.eyebrow': 'Our Philosophy',
     'exp.h1': 'Every dish',
@@ -201,6 +203,8 @@ const DICT: Record<Lang, Record<string, string>> = {
     'hero.order': 'Commander',
     'hero.viewMenu': 'Voir le menu',
     'hero.scroll': 'Défiler',
+    'hero.tagline2': 'Vivez le Punjab à chaque assiette',
+    'hero.craftedLive': 'Préparé sous vos yeux',
 
     'exp.eyebrow': 'Notre philosophie',
     'exp.h1': 'Chaque plat',

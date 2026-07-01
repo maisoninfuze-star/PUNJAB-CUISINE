@@ -1,6 +1,6 @@
 import { Loader } from '@/components/loader/Loader';
 import { Nav } from '@/components/nav/Nav';
-import { HeroVideo } from '@/components/hero/HeroVideo';
+import { HeroMorph } from '@/components/hero/HeroMorph';
 import { Marquee } from '@/components/sections/Marquee';
 import { Experience } from '@/components/sections/Experience';
 import { Story } from '@/components/sections/Story';
@@ -20,7 +20,7 @@ export default function HomePage() {
       <Loader />
       <Nav />
       <main>
-        <HeroVideo />
+        <HeroMorph />
         <Marquee />
         <Experience />
         <Story />

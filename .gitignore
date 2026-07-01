@@ -30,3 +30,6 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# hero morph working files (raw clips + keyframes; final is morph-sequence.mp4)
+/public/hero/morph/
