@@ -13,8 +13,8 @@ import * as THREE from 'three';
  * cinematic surfaces with screen/plus-lighter blending.
  */
 
-const DUST = 520;
-const EMBERS = 46;
+const DUST = 340;
+const EMBERS = 24;
 
 function Field({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
   const dust = useRef<THREE.Points>(null);
@@ -48,8 +48,8 @@ function Field({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
       return { positions, aSeed, aSize, aSpeed };
     }, [count]);
 
-  const dustData = useParticleData(DUST, [26, 16, 10], [6, 20]);
-  const emberData = useParticleData(EMBERS, [22, 14, 8], [26, 64]);
+  const dustData = useParticleData(DUST, [26, 16, 10], [0.9, 2.6]);
+  const emberData = useParticleData(EMBERS, [22, 14, 8], [2.4, 6.5]);
 
   const useGlowMaterial = (core: string, edge: string, intensity: number) =>
     useMemo(
@@ -82,7 +82,7 @@ function Field({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
               p.z += cos(uTime * 0.22 + aSeed * 1.3) * 0.2;
               vTwinkle = 0.55 + 0.45 * sin(uTime * 1.6 + aSeed * 6.2831);
               vec4 mv = modelViewMatrix * vec4(p, 1.0);
-              gl_PointSize = aSize * (300.0 / -mv.z);
+              gl_PointSize = aSize * (46.0 / -mv.z);
               gl_Position = projectionMatrix * mv;
             }
           `,
@@ -107,8 +107,8 @@ function Field({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
       []
     );
 
-  const dustMat = useGlowMaterial('#F4E3A8', '#C9A84C', 0.5);
-  const emberMat = useGlowMaterial('#FFF0C4', '#E8961E', 0.9);
+  const dustMat = useGlowMaterial('#F4E3A8', '#C9A84C', 0.32);
+  const emberMat = useGlowMaterial('#FFF0C4', '#E8961E', 0.6);
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
