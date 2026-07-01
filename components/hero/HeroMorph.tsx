@@ -5,6 +5,7 @@ import { TransitionLink } from '@/components/ui/TransitionLink';
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from 'framer-motion';
 import { useLenis } from '@/components/providers/SmoothScroll';
 import { LogoEmblem } from '@/components/brand/Logo';
+import { AmbientField } from '@/components/three/AmbientField';
 import { useI18n } from '@/lib/i18n';
 
 /**
@@ -103,6 +104,9 @@ export function HeroMorph() {
         />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_0%,transparent_35%,rgba(10,10,10,0.85)_100%)]" />
         <div className="noise pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay" />
+
+        {/* Real WebGL 3D ambient layer — gold dust + embers drifting over the dish */}
+        <AmbientField className="absolute inset-0 z-[5] mix-blend-screen" />
 
         {/* Persistent brand chrome */}
         <motion.div style={{ opacity: chromeOpacity }} className="pointer-events-none absolute inset-0 z-10">
