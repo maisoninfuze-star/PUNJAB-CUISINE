@@ -48,10 +48,11 @@ export function HeroMorph() {
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
-  // Desktop: scrub the clip from scroll. Touch/reduced: leave it autoplaying.
+  // Desktop pointer only: scrub the clip from scroll. Touch/reduced: autoplay.
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     const v = videoRef.current;
-    if (!v || reduced || !v.duration || window.innerWidth < 768) return;
+    if (!v || reduced || !v.duration) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     targetTime.current = Math.min(v.duration - 0.05, p * v.duration);
     if (!rafActive.current) {
       rafActive.current = true;
@@ -81,13 +82,19 @@ export function HeroMorph() {
           autoPlay
           loop
           preload="auto"
+          controls={false}
+          disablePictureInPicture
           onError={() => setHasVideo(false)}
           onLoadedMetadata={(e) => {
-            // Desktop (non-reduced): pause so scroll drives the timeline.
-            // Mobile / reduced-motion: leave it autoplaying + looping.
-            if (window.innerWidth >= 768 && !reduced) {
+            // Real desktop pointer: pause so scroll drives the timeline.
+            // Touch / reduced-motion: keep autoplaying+looping (a paused video
+            // on touch is what makes iOS show its start-playback button).
+            const desktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            if (desktop && !reduced) {
               e.currentTarget.pause();
               e.currentTarget.currentTime = 0;
+            } else {
+              e.currentTarget.play().catch(() => {});
             }
           }}
         />
@@ -105,8 +112,8 @@ export function HeroMorph() {
         <div className="noise pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay" />
 
 
-        {/* Persistent brand chrome */}
-        <motion.div style={{ opacity: chromeOpacity }} className="pointer-events-none absolute inset-0 z-10">
+        {/* Persistent brand chrome — desktop scroll-scrub experience only */}
+        <motion.div style={{ opacity: chromeOpacity }} className="pointer-events-none absolute inset-0 z-10 hidden md:block">
           <div className="container-editorial absolute inset-x-0 top-24 flex flex-col items-center text-center md:top-28">
             <motion.span
               initial={{ opacity: 0, y: 12 }}
@@ -126,21 +133,31 @@ export function HeroMorph() {
           </div>
         </motion.div>
 
-        {/* Final brand lockup */}
+        {/* Final brand lockup — desktop, revealed at end of scroll */}
         <motion.div
           style={{ opacity: lockupOpacity, y: lockupY }}
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
+          className="absolute inset-0 z-20 hidden flex-col items-center justify-center px-6 text-center md:flex"
         >
           <FinalLockup />
         </motion.div>
 
-        {/* Scroll cue */}
+        {/* Mobile hero — static, complete (no scroll-scrub on phones) */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center md:hidden"
+        >
+          <MobileHero />
+        </motion.div>
+
+        {/* Scroll cue — desktop only */}
         <motion.div
           style={{ opacity: chromeOpacity }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 1 }}
-          className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2.5"
+          className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2.5 md:flex"
         >
           <ScrollLabel />
           <span className="h-12 w-px overflow-hidden bg-white/15">
@@ -182,6 +199,40 @@ function SceneLabel({ scene, progress }: { scene: (typeof SCENES)[number]; progr
 function Eyebrow() {
   const { t } = useI18n();
   return <>{t('hero.craftedLive')} · {t('loader.tagline')}</>;
+}
+
+function MobileHero() {
+  const { t } = useI18n();
+  const { scrollTo } = useLenis();
+  return (
+    <>
+      <span className="mb-5 font-sans text-[0.6rem] uppercase tracking-label text-gold/80">
+        {t('loader.tagline')}
+      </span>
+      <LogoEmblem size={92} priority className="drop-shadow-[0_8px_40px_rgba(201,168,76,0.3)]" />
+      <h1 className="mt-5 font-display text-[clamp(2.3rem,11vw,3.4rem)] font-semibold uppercase leading-[0.9] tracking-[-0.02em] text-cream">
+        {t('hero.l1')}
+        <br />
+        <span className="font-accent italic text-gold">{t('hero.l2')}</span> {t('hero.l3')}
+      </h1>
+      <span className="mt-5 block h-px w-40 bg-gradient-to-r from-transparent via-gold to-transparent" />
+      <p className="mt-4 max-w-[16rem] font-sans text-[0.68rem] uppercase leading-relaxed tracking-label text-cream/60">
+        {t('hero.tagline2')}
+      </p>
+      <div className="mt-8 flex w-full max-w-xs flex-col items-stretch gap-3">
+        <TransitionLink href="/order" className="btn-gold w-full justify-center">
+          {t('hero.order')}
+        </TransitionLink>
+        <a
+          href="#menu"
+          onClick={(e) => { e.preventDefault(); scrollTo('#menu'); }}
+          className="btn-ghost w-full justify-center"
+        >
+          {t('hero.viewMenu')}
+        </a>
+      </div>
+    </>
+  );
 }
 
 function ScrollLabel() {
