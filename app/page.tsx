@@ -1,14 +1,10 @@
 import { Loader } from '@/components/loader/Loader';
 import { Nav } from '@/components/nav/Nav';
 import { HeroMorph } from '@/components/hero/HeroMorph';
-import { Marquee } from '@/components/sections/Marquee';
 import { Experience } from '@/components/sections/Experience';
 import { Story } from '@/components/sections/Story';
 import { Signatures } from '@/components/sections/Signatures';
-import { Manifesto } from '@/components/sections/Manifesto';
-import { Stats } from '@/components/sections/Stats';
-import { Gallery } from '@/components/sections/Gallery';
-import { MenuSection } from '@/components/menu/MenuSection';
+import { MenuPreview } from '@/components/menu/MenuPreview';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Visit } from '@/components/sections/Visit';
 import { Footer } from '@/components/sections/Footer';
@@ -21,14 +17,10 @@ export default function HomePage() {
       <Nav />
       <main>
         <HeroMorph />
-        <Marquee />
         <Experience />
         <Story />
         <Signatures />
-        <Manifesto />
-        <Stats />
-        <Gallery />
-        <MenuSection />
+        <MenuPreview />
         <Testimonials />
         <Visit />
       </main>

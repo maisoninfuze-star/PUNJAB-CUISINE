@@ -4,9 +4,13 @@ import { useState } from 'react';
 import { Plus, Check, Leaf, Flame } from 'lucide-react';
 import type { MenuItem } from '@/lib/menu';
 import { DishImage } from '@/components/ui/DishImage';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { useCart } from '@/lib/store/cart';
 import { formatPrice, cn } from '@/lib/utils';
 import { useI18n, localizeItem } from '@/lib/i18n';
+
+/** Detail-page URL for a dish, e.g. /menu/chicken/butter-chicken. */
+export const dishHref = (item: MenuItem) => `/menu/${item.category}/${item.id}`;
 
 function SpiceLevel({ level }: { level: number }) {
   if (!level) return null;
@@ -23,7 +27,7 @@ function SpiceLevel({ level }: { level: number }) {
   );
 }
 
-export function DishCard({ item, priority }: { item: MenuItem; priority?: boolean }) {
+export function DishCard({ item, priority, href }: { item: MenuItem; priority?: boolean; href?: string }) {
   const add = useCart((s) => s.add);
   const { t, lang } = useI18n();
   const l = localizeItem(item, lang);
@@ -35,16 +39,26 @@ export function DishCard({ item, priority }: { item: MenuItem; priority?: boolea
     setTimeout(() => setAdded(false), 1400);
   }
 
+  const Media = (
+    <DishImage
+      src={item.image}
+      alt={l.name}
+      priority={priority}
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      className="transition-transform duration-700 ease-expo group-hover:scale-105"
+    />
+  );
+
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-ink-800 transition-colors duration-500 hover:border-gold/30">
       <div className="relative aspect-[4/3] overflow-hidden">
-        <DishImage
-          src={item.image}
-          alt={l.name}
-          priority={priority}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="transition-transform duration-700 ease-expo group-hover:scale-105"
-        />
+        {href ? (
+          <TransitionLink href={href} className="block h-full w-full" aria-label={l.name}>
+            {Media}
+          </TransitionLink>
+        ) : (
+          Media
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         {/* Badges */}
@@ -79,7 +93,15 @@ export function DishCard({ item, priority }: { item: MenuItem; priority?: boolea
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-display text-xl leading-tight text-cream">{l.name}</h3>
+          <h3 className="font-display text-xl leading-tight text-cream">
+            {href ? (
+              <TransitionLink href={href} className="transition-colors hover:text-gold">
+                {l.name}
+              </TransitionLink>
+            ) : (
+              l.name
+            )}
+          </h3>
           <span className="shrink-0 font-sans text-sm font-medium text-gold">
             {formatPrice(item.price)}
           </span>

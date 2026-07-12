@@ -3,13 +3,14 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, User } from 'lucide-react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { LangToggle } from '@/components/ui/LangToggle';
 import { Logo } from '@/components/brand/Logo';
 import { NAV_LINKS, SITE } from '@/lib/site';
 import { useLenis } from '@/components/providers/SmoothScroll';
 import { useI18n } from '@/lib/i18n';
+import { useAuth } from '@/components/auth/AuthProvider';
 import { cn } from '@/lib/utils';
 
 export function Nav() {
@@ -17,6 +18,8 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const { scrollTo } = useLenis();
   const { t } = useI18n();
+  const { customer } = useAuth();
+  const accountLabel = customer ? customer.name.split(' ')[0] : t('account.login');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -89,6 +92,14 @@ export function Nav() {
               <Phone className="h-4 w-4" />
               {SITE.phoneDisplay}
             </a>
+            <TransitionLink
+              href="/account"
+              className="hidden items-center gap-1.5 text-sm text-cream/75 transition-colors hover:text-gold sm:inline-flex"
+              aria-label={t('account.pageTitle')}
+            >
+              <User className="h-4 w-4" />
+              <span className="hidden lg:inline">{accountLabel}</span>
+            </TransitionLink>
             <TransitionLink href="/order" className="btn-gold hidden sm:inline-flex">
               {t('nav.order')}
             </TransitionLink>
@@ -145,6 +156,9 @@ export function Nav() {
               <div className="mt-10 flex flex-col gap-4">
                 <TransitionLink href="/order" className="btn-gold w-full" onClick={() => setOpen(false)}>
                   {t('nav.order')}
+                </TransitionLink>
+                <TransitionLink href="/account" className="btn-ghost w-full" onClick={() => setOpen(false)}>
+                  <User className="h-4 w-4" /> {accountLabel}
                 </TransitionLink>
                 <a href={`tel:${SITE.phoneHref}`} className="btn-ghost w-full">
                   <Phone className="h-4 w-4" /> {t('visit.call')}

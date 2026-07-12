@@ -10,26 +10,24 @@ type Props = LinkProps & {
 };
 
 /**
- * Link that runs route changes inside the View Transitions API so pages
- * cross-fade like Zimmerl's `view-transition-name: root`. Falls back to a
- * normal client navigation where the API is unsupported.
+ * Client navigation link. Navigation is driven by `router.push` so it can never
+ * be swallowed. (An earlier version wrapped `router.push` inside
+ * `document.startViewTransition()` for a cross-fade, but that stalls App Router
+ * navigation — the transition freezes the DOM the router needs to update — so
+ * every TransitionLink silently stopped navigating.) Modifier / middle clicks
+ * fall through to the browser so "open in new tab" still works.
  */
 export function TransitionLink({ href, children, className, onClick, ...rest }: Props) {
   const router = useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    onClick?.();
-    const doc = document as Document & {
-      startViewTransition?: (cb: () => void) => void;
-    };
-    if (
-      typeof doc.startViewTransition !== 'function' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      return; // default Link behaviour
-    }
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
-    doc.startViewTransition(() => router.push(href.toString()));
+    onClick?.();
+
+    // Navigate unconditionally. (Wrapping router.push inside
+    // startViewTransition stalls App Router navigation, so we don't.)
+    router.push(href.toString());
   }
 
   return (

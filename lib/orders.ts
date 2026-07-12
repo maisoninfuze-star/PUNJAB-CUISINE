@@ -24,6 +24,8 @@ export interface Order {
   createdAt: number;
   updatedAt: number;
   status: OrderStatus;
+  /** Set when the order was placed by a signed-in account (for order history). */
+  customerId?: string;
   customer: { name: string; phone: string; email?: string };
   pickupTime: string; // ISO
   items: OrderLine[];

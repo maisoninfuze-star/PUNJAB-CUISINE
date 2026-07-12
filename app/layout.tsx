@@ -4,6 +4,7 @@ import { SITE } from '@/lib/site';
 import { RestaurantJsonLd } from '@/components/seo/JsonLd';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { I18nProvider } from '@/lib/i18n';
+import { AuthProvider } from '@/components/auth/AuthProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -59,7 +60,9 @@ export default function RootLayout({
       <body>
         <RestaurantJsonLd />
         <I18nProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          <AuthProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+          </AuthProvider>
         </I18nProvider>
       </body>
     </html>

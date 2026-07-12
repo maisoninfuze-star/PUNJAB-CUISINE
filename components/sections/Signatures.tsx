@@ -33,7 +33,7 @@ export function Signatures() {
             </h2>
           </Reveal>
           <TransitionLink
-            href="/order"
+            href="/menu"
             className="group inline-flex items-center gap-2 text-sm uppercase tracking-label text-cream/70 transition-colors hover:text-gold"
           >
             {t('sig.viewAll')}

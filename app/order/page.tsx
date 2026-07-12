@@ -1,12 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Minus, Plus, Trash2, Clock, ShoppingBag, Loader2 } from 'lucide-react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { Logo } from '@/components/brand/Logo';
 import { DishImage } from '@/components/ui/DishImage';
+import { AccountPanel } from '@/components/auth/AccountPanel';
+import { useAuth } from '@/components/auth/AuthProvider';
 import { useCart, selectSubtotal } from '@/lib/store/cart';
+import { isValidPhone } from '@/lib/phone';
 import { formatPrice } from '@/lib/utils';
 import { SITE } from '@/lib/site';
 import { useI18n, localizeItem } from '@/lib/i18n';
@@ -36,14 +39,29 @@ export default function OrderPage() {
   const subtotal = useCart(selectSubtotal);
   const slots = usePickupSlots();
 
+  const { customer } = useAuth();
   const [confirmed, setConfirmed] = useState<null | { number: string; time: string }>(null);
-  const [form, setForm] = useState({ name: '', phone: '', email: '', pickup: '', notes: '' });
+  const [form, setForm] = useState({ name: '', phone: '', email: '', pickup: '', notes: '', marketing: true });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
+  // Prefill contact details once the signed-in customer hydrates.
+  useEffect(() => {
+    if (!customer) return;
+    setForm((prev) => ({
+      ...prev,
+      name: prev.name || customer.name,
+      phone: prev.phone || customer.phone,
+      email: prev.email || customer.email,
+      marketing: customer.marketingOptIn,
+    }));
+  }, [customer]);
+
   const taxes = subtotal * 0.14975; // QC GST + QST
   const total = subtotal + taxes;
-  const canSubmit = lines.length > 0 && !!form.name && !!form.phone && !!form.pickup && !busy;
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+  const phoneValid = isValidPhone(form.phone);
+  const canSubmit = lines.length > 0 && !!form.name && phoneValid && emailValid && !!form.pickup && !busy;
 
   async function placeOrder(e: React.FormEvent) {
     e.preventDefault();
@@ -56,6 +74,8 @@ export default function OrderPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           customer: { name: form.name, phone: form.phone, email: form.email },
+          marketingOptIn: form.marketing,
+          lang,
           pickupTime: form.pickup,
           // English names go to the kitchen for consistency.
           items: lines.map((l) => ({
@@ -172,15 +192,20 @@ export default function OrderPage() {
                 >
                   <h2 className="font-display text-2xl text-cream">{t('order.details')}</h2>
 
+                  <AccountPanel />
+
                   <div className="space-y-3">
                     <Field label={t('order.name')} required>
                       <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="input-dark" placeholder={t('order.name')} />
                     </Field>
                     <Field label={t('order.phone')} required>
-                      <input required type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="input-dark" placeholder="(514) 555-0000" />
+                      <input required type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="input-dark" placeholder="(514) 555-0000" aria-invalid={!!form.phone && !phoneValid} />
+                      {!!form.phone && !phoneValid && (
+                        <p className="mt-1 text-xs text-rose-400">{t('order.phoneInvalid')}</p>
+                      )}
                     </Field>
-                    <Field label={t('order.email')}>
-                      <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-dark" placeholder="you@email.com" />
+                    <Field label={t('order.email')} required>
+                      <input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-dark" placeholder="you@email.com" />
                     </Field>
                     <Field label={t('order.pickupTime')} required>
                       <div className="relative">
@@ -202,6 +227,16 @@ export default function OrderPage() {
                     <Row label={t('order.taxes')} value={formatPrice(taxes)} muted />
                     <Row label={t('order.total')} value={formatPrice(total)} bold />
                   </div>
+
+                  <label className="flex cursor-pointer items-start gap-2.5 text-xs text-cream/60">
+                    <input
+                      type="checkbox"
+                      checked={form.marketing}
+                      onChange={(e) => setForm({ ...form, marketing: e.target.checked })}
+                      className="mt-0.5 h-4 w-4 shrink-0 accent-gold"
+                    />
+                    <span>{t('order.marketing')}</span>
+                  </label>
 
                   {error && <p className="text-sm text-rose-400">{error}</p>}
 
@@ -260,7 +295,7 @@ function EmptyBasket() {
       <ShoppingBag className="h-10 w-10 text-cream/30" />
       <p className="mt-4 font-display text-2xl text-cream">{t('order.empty.title')}</p>
       <p className="mt-2 max-w-sm text-sm text-cream/55">{t('order.empty.body')}</p>
-      <Link href="/#menu" className="btn-gold mt-8">{t('order.empty.cta')}</Link>
+      <Link href="/menu" className="btn-gold mt-8">{t('order.empty.cta')}</Link>
     </div>
   );
 }

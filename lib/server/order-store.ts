@@ -67,6 +67,17 @@ export function getOrder(id: string): Order | undefined {
   return load().get(id);
 }
 
+/**
+ * Orders belonging to a customer — matched by account id OR by the email used
+ * at checkout (so guest orders placed before they registered still show up).
+ */
+export function listOrdersForCustomer(customerId: string, email?: string): Order[] {
+  const e = email?.trim().toLowerCase();
+  return [...load().values()]
+    .filter((o) => o.customerId === customerId || (!!e && o.customer.email?.trim().toLowerCase() === e))
+    .sort((a, b) => b.createdAt - a.createdAt);
+}
+
 export function createOrder(input: Omit<Order, 'id' | 'createdAt' | 'updatedAt' | 'status'>): Order {
   const map = load();
   let id = generateOrderNumber();

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
 import {
   Bell,
   BellOff,
@@ -12,6 +13,7 @@ import {
   Phone,
   LogOut,
   Loader2,
+  Users,
 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
 import { formatPrice } from '@/lib/utils';
@@ -20,7 +22,7 @@ import {
   type OrderStatus,
   STATUS_META,
 } from '@/lib/orders';
-import { primeAudio, playAlert } from '@/components/dashboard/sound';
+import { primeAudio, playAlert, isAudioReady, requestNotify, notifyNewOrder } from '@/components/dashboard/sound';
 import { printOrder } from '@/components/dashboard/printOrder';
 
 const KEY_STORAGE = 'pc-owner-key';
@@ -100,8 +102,31 @@ function Kitchen({ ownerKey, onLogout }: { ownerKey: string; onLogout: () => voi
   const [orders, setOrders] = useState<Record<string, Order>>({});
   const [connected, setConnected] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  const [audioReady, setAudioReady] = useState(false);
   const soundRef = useRef(soundOn);
   soundRef.current = soundOn;
+
+  // Unlock kitchen audio. When the owner arrives with a stored passcode the
+  // LoginGate (and its priming click) is skipped, so the AudioContext would
+  // stay suspended and the new-order chime silent until a manual interaction.
+  // Prime eagerly on mount, and again on the first gesture anywhere as a
+  // fallback for browsers that require one. `audioReady` drives the banner that
+  // nudges staff to click if the browser is still blocking sound.
+  useEffect(() => {
+    const sync = () => setAudioReady(isAudioReady());
+    primeAudio();
+    sync();
+    requestNotify();
+    const unlock = () => { primeAudio(); sync(); };
+    window.addEventListener('pointerdown', unlock);
+    window.addEventListener('keydown', unlock);
+    const id = setInterval(sync, 2000); // context can suspend when tab is hidden
+    return () => {
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+      clearInterval(id);
+    };
+  }, []);
 
   // Live feed via SSE.
   useEffect(() => {
@@ -117,6 +142,10 @@ function Kitchen({ ownerKey, onLogout }: { ownerKey: string; onLogout: () => voi
       } else if (msg.type === 'created') {
         setOrders((prev) => ({ ...prev, [msg.order.id]: msg.order }));
         if (soundRef.current) playAlert();
+        notifyNewOrder(
+          `New order ${msg.order.id}`,
+          `${msg.order.customer?.name ?? ''} · ${formatPrice(msg.order.total)}`
+        );
       } else if (msg.type === 'updated') {
         setOrders((prev) => ({ ...prev, [msg.order.id]: msg.order }));
       }
@@ -136,6 +165,21 @@ function Kitchen({ ownerKey, onLogout }: { ownerKey: string; onLogout: () => voi
     const id = setInterval(() => playAlert(), 12000);
     return () => clearInterval(id);
   }, [soundOn, pendingCount]);
+
+  // Flash the browser tab title while orders wait — a visual alert even when
+  // the dashboard tab is in the background.
+  useEffect(() => {
+    const base = 'Punjabi Kitchen';
+    if (pendingCount === 0) { document.title = base; return; }
+    let on = false;
+    const flip = () => {
+      on = !on;
+      document.title = on ? `🔔 ${pendingCount} new order${pendingCount > 1 ? 's' : ''}!` : base;
+    };
+    flip();
+    const id = setInterval(flip, 1000);
+    return () => { clearInterval(id); document.title = base; };
+  }, [pendingCount]);
 
   const setStatus = useCallback(
     async (id: string, status: OrderStatus) => {
@@ -189,6 +233,14 @@ function Kitchen({ ownerKey, onLogout }: { ownerKey: string; onLogout: () => voi
             <Stat label="Orders today" value={String(stats.count)} />
             <Stat label="Revenue" value={formatPrice(stats.revenue)} />
             <Stat label="Avg prep" value={`${stats.avgPrep.toFixed(0)} min`} />
+            <Link
+              href="/dashboard/customers"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-cream/70 transition-colors hover:border-gold hover:text-gold"
+              aria-label="Customers"
+              title="Customers & marketing list"
+            >
+              <Users className="h-4 w-4" />
+            </Link>
             <button
               onClick={() => { primeAudio(); setSoundOn((s) => !s); }}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-cream/70 transition-colors hover:border-gold hover:text-gold"
@@ -208,6 +260,16 @@ function Kitchen({ ownerKey, onLogout }: { ownerKey: string; onLogout: () => voi
           </div>
         </div>
       </header>
+
+      {/* Sound-blocked nudge — browsers mute audio until the page is clicked. */}
+      {soundOn && !audioReady && (
+        <button
+          onClick={() => { primeAudio(); setAudioReady(isAudioReady()); requestNotify(); }}
+          className="flex w-full items-center justify-center gap-2 bg-amber-500/15 py-2.5 text-sm font-medium text-amber-300 transition-colors hover:bg-amber-500/25"
+        >
+          <Bell className="h-4 w-4" /> Tap here to turn on new-order sounds
+        </button>
+      )}
 
       {/* Columns */}
       <div className="mx-auto grid max-w-[1600px] gap-5 px-6 py-6 lg:grid-cols-3">
