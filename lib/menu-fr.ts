@@ -95,6 +95,7 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   'lamb-tikka-masala': { name: 'Agneau Tikka Masala', description: "Agneau grillé dans un masala crémeux et épicé aux tomates." },
   'goat-curry': { name: 'Cari de chèvre', description: 'Chèvre avec os mijotée longuement dans un cari maison robuste.' },
   'goat-korma': { name: 'Korma de chèvre', description: 'Chèvre dans un korma doux et velouté aux noix.' },
+  'special-goat-handi': { name: 'Handi de chèvre spécial', description: 'Chèvre à la sud-indienne, poivre et feuilles de curry.' },
 
   // Beef
   'beef-curry': { name: 'Cari de bœuf', description: 'Bœuf tendre mijoté dans un cari punjabi robuste.' },
@@ -153,6 +154,7 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   'egg-fried-rice': { name: 'Riz frit à l’œuf', description: 'Riz sauté au wok avec œuf et légumes.' },
   'veg-fried-rice': { name: 'Riz frit aux légumes', description: 'Riz sauté au wok avec légumes variés.' },
   'veg-noodles': { name: 'Nouilles aux légumes', description: 'Nouilles sautées aux légumes variés.' },
+  'crispy-mushroom': { name: 'Champignons croustillants', description: 'Champignons frits croustillants dans une sauce à l’ail épicée.' },
 
   // Tandoori
   'chicken-seekh-kebab': { name: 'Seekh Kebab de poulet (5)', description: 'Brochettes de poulet haché épicé saisies au four d’argile.' },
@@ -180,7 +182,7 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   // Thali
   'veggie-thali': { name: 'Thali végétarien', description: 'Assiette complète : cari, daal, riz, naan, dessert et accompagnements.' },
   'non-veg-thali': { name: 'Thali non végétarien', description: 'Assiette complète avec cari de viande, riz, naan et accompagnements.' },
-  'lamb-thali': { name: 'Thali à l’agneau', description: 'Généreux festin d’agneau avec riz, naan, dessert et accompagnements.' },
+  'lamb-thali': { name: 'Thali Non-Végétarien', description: 'Choix de protéine, servi avec riz, naan, dal et dessert.' },
 
   // Breads
   'butter-naan': { name: 'Naan au beurre', description: 'Naan moelleux cuit au tandoor et badigeonné de beurre.' },

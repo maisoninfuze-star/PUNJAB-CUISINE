@@ -141,6 +141,7 @@ export const MENU: MenuItem[] = [
   i('lamb-tikka-masala', 'Lamb Tikka Masala', 13.99, 'lamb', 'Char-grilled lamb in a spiced, cream-finished tomato masala.', { spice: 2 }),
   i('goat-curry', 'Goat Curry', 16.99, 'lamb', 'Bone-in goat slow-cooked in a robust home-style curry.', { spice: 2, signature: true }),
   i('goat-korma', 'Goat Korma', 16.99, 'lamb', 'Goat in a mellow, nut-thickened korma.', { spice: 1 }),
+  i('special-goat-handi', 'Special Goat Handi', 19.99, 'lamb', 'South Indian goat with peppercorn and curry leaves.', { spice: 3 }),
 
   // ── Beef ────────────────────────────────────────────────────
   i('beef-curry', 'Beef Curry', 13.99, 'beef', 'Tender beef slow-cooked in a robust Punjabi curry.', { spice: 2 }),
@@ -200,6 +201,7 @@ export const MENU: MenuItem[] = [
   i('egg-fried-rice', 'Egg Fried Rice', 12.99, 'chinese', 'Wok-fried rice with egg and vegetables.', { spice: 1 }),
   i('veg-fried-rice', 'Veg Fried Rice', 12.99, 'chinese', 'Wok-fried rice with mixed vegetables.', { vegetarian: true, spice: 1 }),
   i('veg-noodles', 'Veg Noodles', 11.99, 'chinese', 'Stir-fried noodles with mixed vegetables.', { vegetarian: true, spice: 1 }),
+  i('crispy-mushroom', 'Crispy Mushroom', 12.99, 'chinese', 'Crispy fried mushrooms tossed in a spicy garlic sauce.', { vegetarian: true, spice: 2 }),
 
   // ── Tandoori ────────────────────────────────────────────────
   i('chicken-seekh-kebab', 'Chicken Seekh Kebab (5)', 12.99, 'tandoori', 'Spiced minced-chicken skewers seared in the clay oven.', { spice: 2 }),
@@ -211,6 +213,10 @@ export const MENU: MenuItem[] = [
   i('fish-tikka', 'Fish Tikka', 15.99, 'tandoori', 'Marinated fish char-grilled in the tandoor.', { spice: 2 }),
   i('chicken-tikka', 'Chicken Tikka', 14.99, 'tandoori', 'Boneless chicken in yogurt-and-spice marinade, char-grilled.', { spice: 2 }),
   i('hariyali-tikka', 'Hariyali Tikka', 15.99, 'tandoori', 'Chicken in a fresh mint-and-coriander marinade.', { spice: 2 }),
+  i('paneer-tikka', 'Paneer Tikka', 16.99, 'tandoori', 'Cottage cheese marinated in spices, grilled in the tandoor.', { vegetarian: true, spice: 2 }),
+  i('soya-chaap', 'Soya Chaap', 13.99, 'tandoori', 'Marinated soya chaap grilled in the tandoor.', { vegetarian: true, spice: 2 }),
+  i('lamb-chops', 'Lamb Chops', 29.99, 'tandoori', 'Tender lamb chops marinated and grilled in the tandoor.', { spice: 2 }),
+  i('salmon-fish-tikka', 'Salmon Fish Tikka', 19.99, 'tandoori', 'Salmon marinated in tandoori spices and grilled.', { spice: 2 }),
 
   // ── Biryani & Rice ──────────────────────────────────────────
   i('chicken-biryani-bone', 'Dum Biryani Chicken (bone-in)', 11.99, 'biryani', 'Bone-in chicken layered with saffron basmati, slow-dum-cooked.', { spice: 2 }),
@@ -226,7 +232,7 @@ export const MENU: MenuItem[] = [
 
   // ── Thali ───────────────────────────────────────────────────
   i('veggie-thali', 'Veggy Thali', 11.99, 'thali', 'Dal, vegetable curry, rice, naan, chutney, dessert and drink.', { vegetarian: true, spice: 1 }),
-  i('new-veggy-thali', 'New Veggy Thali', 12.99, 'thali', 'Upgraded vegetarian thali with two extra sides.', { vegetarian: true, spice: 1 }),
+  i('lamb-thali', 'Non Veg Thali', 12.99, 'thali', 'Choice of protein served with rice, naan, dal and dessert.', { spice: 2 }),
   i('special-thali', 'Special Thali', 15.99, 'thali', 'Choice of chicken or lamb, with a chicken tandoori leg, naan, rice and gulab jamun.', { spice: 2 }),
 
   // ── Breads ──────────────────────────────────────────────────
@@ -239,10 +245,10 @@ export const MENU: MenuItem[] = [
   i('onion-cheese-naan', 'Onion Cheese Naan', 7.99, 'breads', 'Naan filled with onion and melted cheese.', { vegetarian: true }),
   i('lacha-paratha', 'Lacha Paratha', 2.99, 'breads', 'Flaky, layered whole-wheat griddle bread.', { vegetarian: true }),
   i('ogeenu-kulcha', 'Onion Kulcha', 3.99, 'breads', 'Soft leavened bread stuffed with spiced onion.', { vegetarian: true }),
-  i('tandoori-roti', 'Tandoori Roti', 3.99, 'breads', 'Whole-wheat flatbread baked in the clay oven.', { vegetarian: true }),
+  i('tandoori-roti', 'Tandoori Roti', 2.99, 'breads', 'Whole-wheat flatbread baked in the clay oven.', { vegetarian: true }),
   i('amritsari-kulcha-1', 'Amritsari Kulcha (1 pc)', 8.99, 'breads', 'Amritsar-style crisp stuffed kulcha.', { vegetarian: true }),
   i('amritsari-kulcha-2', 'Amritsari Kulcha (2 pc)', 15.99, 'breads', 'A pair of Amritsar-style crisp stuffed kulchas with channa, onion salad and raita.', { vegetarian: true }),
-  i('paneer-prantha', 'Paneer Paratha', 3.99, 'breads', 'Whole-wheat paratha stuffed with spiced paneer.', { vegetarian: true }),
+  i('paneer-prantha', 'Paneer Paratha', 4.99, 'breads', 'Whole-wheat paratha stuffed with spiced paneer.', { vegetarian: true }),
   i('aloo-prantha-tandoori', 'Aloo Paratha', 3.99, 'breads', 'Tandoor paratha stuffed with spiced potato.', { vegetarian: true }),
   i('bathura', 'Bathura', 1.99, 'breads', 'Fluffy deep-fried leavened bread.', { vegetarian: true }),
 
@@ -260,6 +266,7 @@ export const MENU: MenuItem[] = [
   i('mango-shake', 'Mango Shake', 4.5, 'drinks', 'Thick, creamy mango milkshake.', { vegetarian: true }),
   i('rose-milk', 'Rose Milk', 1.99, 'drinks', 'Chilled milk scented with rose.', { vegetarian: true }),
   i('masala-tea', 'Masala Chai', 2.99, 'drinks', 'Assam tea brewed with milk, ginger and garam masala.', { vegetarian: true }),
+  i('lemon-soda', 'Lemon Soda', 5.99, 'drinks', 'Chilled sparkling lemon soda, sweet or salted.', { vegetarian: true }),
   i('soft-drink', 'Soft Drink', 1.99, 'drinks', 'Chilled canned soft drink.', { vegetarian: true }),
   i('water', 'Bottled Water', 1.99, 'drinks', 'Bottled spring water.', { vegetarian: true }),
 
