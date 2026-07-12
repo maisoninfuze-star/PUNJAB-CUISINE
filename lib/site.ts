@@ -17,9 +17,7 @@ export const SITE = {
   },
   geo: { lat: 45.4967, lng: -73.8196 },
   hours: [
-    { days: 'Monday – Thursday', daysFr: 'Lundi – Jeudi', time: '5:00 PM – 10:30 PM', timeFr: '17 h – 22 h 30' },
-    { days: 'Friday – Saturday', daysFr: 'Vendredi – Samedi', time: '5:00 PM – 11:30 PM', timeFr: '17 h – 23 h 30' },
-    { days: 'Sunday', daysFr: 'Dimanche', time: '5:00 PM – 10:00 PM', timeFr: '17 h – 22 h' },
+    { days: 'Every day', daysFr: 'Tous les jours', time: '11:00 AM – 11:00 PM', timeFr: '11 h – 23 h' },
   ],
   priceRange: '$$',
   social: {

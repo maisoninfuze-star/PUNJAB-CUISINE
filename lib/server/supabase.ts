@@ -9,8 +9,10 @@
  */
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// Sanitize common copy-paste mistakes: trailing slash, or an accidental
+// "/rest/v1" suffix. The base URL must be exactly https://<ref>.supabase.co.
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim().replace(/\/(rest\/v1)?\/*$/, '');
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
 /** True when a Supabase project is configured (production path). */
 export const useSupabase = Boolean(url && serviceKey);

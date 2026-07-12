@@ -55,8 +55,12 @@ function LoginGate({ onAuthed }: { onAuthed: (key: string) => void }) {
       if (res.ok) {
         localStorage.setItem(KEY_STORAGE, value);
         onAuthed(value);
-      } else {
+      } else if (res.status === 401) {
         setError('Incorrect passcode.');
+      } else {
+        // A correct passcode still fails here if the order database can't be
+        // reached — don't blame the passcode for a server/config error.
+        setError('Server error — the order database isn’t reachable. Check the Supabase settings, then try again.');
       }
     } catch {
       setError('Could not reach the server.');
