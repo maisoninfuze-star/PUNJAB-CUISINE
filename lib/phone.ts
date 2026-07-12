@@ -24,7 +24,7 @@ export function isValidPhone(input: string): boolean {
   return normalizePhone(input) !== null;
 }
 
-/** Pretty display form, e.g. (514) 685-8585. Falls back to the raw input. */
+/** Pretty display form, e.g. (514) 384-2000. Falls back to the raw input. */
 export function formatPhone(input: string): string {
   const d = normalizePhone(input);
   return d ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : input;

@@ -5,8 +5,8 @@ export const SITE = {
   description:
     'A cinematic Punjabi dining experience in Montreal — tandoor-fired classics, slow-cooked curries and warm Punjabi hospitality. Reserve a table or order pickup.',
   url: 'https://punjabicuisine.ca',
-  phoneDisplay: '(514) 685-8585',
-  phoneHref: '+15146858585',
+  phoneDisplay: '(514) 384-2000',
+  phoneHref: '+15143842000',
   email: 'info@punjabicuisine.ca',
   address: {
     street: '4847 Bd des Sources',
