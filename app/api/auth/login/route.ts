@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   const password = String(body?.password || '');
   if (!email || !password) return NextResponse.json({ error: 'missing_fields' }, { status: 400 });
 
-  const record = verifyLogin(email, password);
+  const record = await verifyLogin(email, password);
   if (!record) return NextResponse.json({ error: 'bad_credentials' }, { status: 401 });
 
   startSession(record.id);

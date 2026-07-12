@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
   // Strip password fields — send only what the dashboard shows.
-  const customers = listCustomers().map((c) => ({
+  const customers = (await listCustomers()).map((c) => ({
     id: c.id,
     email: c.email,
     name: c.name,

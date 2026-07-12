@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   if (!isOwner(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
-  return NextResponse.json({ orders: listOrders() });
+  return NextResponse.json({ orders: await listOrders() });
 }
 
 /** Customer: place a pickup order. Public. */
@@ -50,12 +50,12 @@ export async function POST(req: Request) {
   const total = Math.round((subtotal + taxes) * 100) / 100;
 
   // Capture / update the customer in the retargeting list (guest or account).
-  upsertLeadFromOrder({ email, name, phone, marketingOptIn: body?.marketingOptIn !== false });
+  await upsertLeadFromOrder({ email, name, phone, marketingOptIn: body?.marketingOptIn !== false });
 
   // Link the order to the signed-in account (if any) so it shows in history.
-  const account = currentCustomer();
+  const account = await currentCustomer();
 
-  const order = createOrder({
+  const order = await createOrder({
     customerId: account?.id,
     customer: { name, phone, email },
     pickupTime: String(body.pickupTime),

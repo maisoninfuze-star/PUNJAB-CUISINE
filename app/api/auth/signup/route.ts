@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   if (password.length < 6) return NextResponse.json({ error: 'weak_password' }, { status: 400 });
 
   try {
-    const record = createAccount({ email, name, phone: formatPhone(phone), password, marketingOptIn });
+    const record = await createAccount({ email, name, phone: formatPhone(phone), password, marketingOptIn });
     startSession(record.id);
     return NextResponse.json({ customer: toPublic(record) }, { status: 201 });
   } catch (e) {

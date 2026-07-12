@@ -63,9 +63,9 @@ export function endSession() {
 }
 
 /** Resolve the signed-in customer from the request cookies, or null. */
-export function currentCustomer(): CustomerRecord | null {
+export async function currentCustomer(): Promise<CustomerRecord | null> {
   const token = cookies().get(SESSION_COOKIE)?.value;
   const parsed = verifyToken(token);
   if (!parsed) return null;
-  return getById(parsed.sub) ?? null;
+  return (await getById(parsed.sub)) ?? null;
 }

@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 /** Public: fetch a single order (customer status lookup). */
 export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  const order = getOrder(params.id);
+  const order = await getOrder(params.id);
   if (!order) return NextResponse.json({ error: 'not found' }, { status: 404 });
   return NextResponse.json({ order });
 }
@@ -28,7 +28,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   if (!status || !(status in STATUS_META)) {
     return NextResponse.json({ error: 'invalid status' }, { status: 400 });
   }
-  const order = updateOrderStatus(params.id, status);
+  const order = await updateOrderStatus(params.id, status);
   if (!order) return NextResponse.json({ error: 'not found' }, { status: 404 });
   return NextResponse.json({ order });
 }

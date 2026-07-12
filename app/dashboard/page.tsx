@@ -128,29 +128,43 @@ function Kitchen({ ownerKey, onLogout }: { ownerKey: string; onLogout: () => voi
     };
   }, []);
 
-  // Live feed via SSE.
+  // Live feed via polling — robust across serverless instances (no SSE needed).
+  // Every 5s we pull the current orders; a pending order we haven't seen before
+  // rings the chime and fires a notification (after the first seeding pass, so
+  // orders already waiting on load don't all blast at once).
   useEffect(() => {
-    const es = new EventSource(`/api/orders/stream?key=${encodeURIComponent(ownerKey)}`);
-    es.onopen = () => setConnected(true);
-    es.onerror = () => setConnected(false);
-    es.onmessage = (ev) => {
-      const msg = JSON.parse(ev.data);
-      if (msg.type === 'snapshot') {
+    let alive = true;
+    const seen = new Set<string>();
+    let seeded = false;
+
+    async function poll() {
+      try {
+        const res = await fetch('/api/orders', { headers: { 'x-owner-key': ownerKey } });
+        if (!res.ok) throw new Error('poll failed');
+        const { orders: list } = (await res.json()) as { orders: Order[] };
+        if (!alive) return;
+        setConnected(true);
+
         const map: Record<string, Order> = {};
-        for (const o of msg.orders as Order[]) map[o.id] = o;
+        for (const o of list) map[o.id] = o;
         setOrders(map);
-      } else if (msg.type === 'created') {
-        setOrders((prev) => ({ ...prev, [msg.order.id]: msg.order }));
-        if (soundRef.current) playAlert();
-        notifyNewOrder(
-          `New order ${msg.order.id}`,
-          `${msg.order.customer?.name ?? ''} · ${formatPrice(msg.order.total)}`
-        );
-      } else if (msg.type === 'updated') {
-        setOrders((prev) => ({ ...prev, [msg.order.id]: msg.order }));
+
+        const fresh = list.filter((o) => o.status === 'pending' && !seen.has(o.id));
+        for (const o of list) seen.add(o.id);
+        if (seeded && fresh.length) {
+          if (soundRef.current) playAlert();
+          const o = fresh[0];
+          notifyNewOrder(`New order ${o.id}`, `${o.customer?.name ?? ''} · ${formatPrice(o.total)}`);
+        }
+        seeded = true;
+      } catch {
+        if (alive) setConnected(false);
       }
-    };
-    return () => es.close();
+    }
+
+    poll();
+    const id = setInterval(poll, 5000);
+    return () => { alive = false; clearInterval(id); };
   }, [ownerKey]);
 
   const all = useMemo(

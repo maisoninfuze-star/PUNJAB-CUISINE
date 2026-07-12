@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 /** The signed-in customer's own order history. */
 export async function GET() {
-  const c = currentCustomer();
+  const c = await currentCustomer();
   if (!c) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-  return NextResponse.json({ orders: listOrdersForCustomer(c.id, c.email) });
+  return NextResponse.json({ orders: await listOrdersForCustomer(c.id, c.email) });
 }

@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   if (!isOwner(req)) return new Response('unauthorized', { status: 401 });
 
   const optedInOnly = new URL(req.url).searchParams.get('optedIn') === '1';
-  const rows = listCustomers().filter((c) => (optedInOnly ? c.marketingOptIn : true));
+  const rows = (await listCustomers()).filter((c) => (optedInOnly ? c.marketingOptIn : true));
 
   const header = ['email', 'name', 'phone', 'account', 'marketing_opt_in', 'orders', 'created', 'last_order'];
   const lines = [header.join(',')];
