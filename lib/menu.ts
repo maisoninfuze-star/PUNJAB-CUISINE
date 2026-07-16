@@ -24,7 +24,8 @@ export type Category =
   | 'desserts'
   | 'drinks'
   | 'extras'
-  | 'combos';
+  | 'combos'
+  | 'pizza';
 
 export interface MenuItem {
   id: string;
@@ -50,6 +51,7 @@ export const CATEGORIES: { id: Category; label: string }[] = [
   { id: 'tandoori', label: 'Tandoori' },
   { id: 'biryani', label: 'Biryani & Rice' },
   { id: 'chinese', label: 'Indo-Chinese' },
+  { id: 'pizza', label: 'Pizza & More' },
   { id: 'appetizers', label: 'Appetizers' },
   { id: 'street-food', label: 'Street Food' },
   { id: 'soups', label: 'Soups' },
@@ -67,8 +69,11 @@ const i = (
   price: number,
   category: Category,
   description: string,
-  opts: { spice?: 0 | 1 | 2 | 3; vegetarian?: boolean; signature?: boolean } = {}
-): MenuItem => ({ id, name, price, category, description, image: `/menu/${id}.jpg`, ...opts });
+  opts: { spice?: 0 | 1 | 2 | 3; vegetarian?: boolean; signature?: boolean; image?: string } = {}
+): MenuItem => {
+  const { image, ...rest } = opts;
+  return { id, name, price, category, description, image: image ?? `/menu/${id}.jpg`, ...rest };
+};
 
 export const MENU: MenuItem[] = [
   // ── Soups ───────────────────────────────────────────────────
@@ -77,7 +82,7 @@ export const MENU: MenuItem[] = [
   i('chicken-soup', 'Chicken Soup', 5.99, 'soups', 'Clear, fragrant chicken broth with herbs and spices.', { spice: 1 }),
 
   // ── Appetizers ──────────────────────────────────────────────
-  i('vegetable-samosa', 'Vegetable Samosa (2 pcs)', 3.99, 'appetizers', 'Crisp pastry filled with spiced potato and peas.', { vegetarian: true, spice: 1, signature: true }),
+  i('vegetable-samosa', 'Vegetable Samosa (2 pcs)', 2.99, 'appetizers', 'Crisp pastry filled with spiced potato and peas.', { vegetarian: true, spice: 1, signature: true }),
   i('samosa-chaat', 'Samosa Chaat', 6.99, 'appetizers', 'Crushed samosa topped with chickpeas, yogurt, chutneys and spices.', { vegetarian: true, spice: 2 }),
   i('chaat-papri', 'Chaat Papri', 6.99, 'appetizers', 'Crisp wafers layered with chickpeas, yogurt and tangy chutneys.', { vegetarian: true, spice: 2 }),
   i('aloo-tikki', 'Aloo Tikki (2 pcs)', 3.99, 'appetizers', 'Golden pan-fried potato patties, crisp outside, soft within.', { vegetarian: true, spice: 1 }),
@@ -280,6 +285,34 @@ export const MENU: MenuItem[] = [
   i('mix-pickle', 'Mixed Pickle', 1.49, 'extras', 'Tangy, spicy Indian mixed pickle.', { vegetarian: true }),
   i('side-rice', 'Side Rice', 1.99, 'extras', 'A small side of steamed rice.', { vegetarian: true }),
 
+  // ── Pizza & More ────────────────────────────────────────────
+  // Cheese pizza
+  i('pizza-cheese-sm', 'Cheese Pizza — Small', 9.99, 'pizza', 'Classic cheese pizza on a hand-tossed crust.', { vegetarian: true, image: '/menu/pizza-cheese.jpg', signature: true }),
+  i('pizza-cheese-md', 'Cheese Pizza — Medium', 10.99, 'pizza', 'Classic cheese pizza on a hand-tossed crust.', { vegetarian: true, image: '/menu/pizza-cheese.jpg' }),
+  i('pizza-cheese-lg', 'Cheese Pizza — Large', 14.99, 'pizza', 'Classic cheese pizza on a hand-tossed crust.', { vegetarian: true, image: '/menu/pizza-cheese.jpg' }),
+  i('pizza-cheese-xl', 'Cheese Pizza — X-Large', 16.99, 'pizza', 'Classic cheese pizza on a hand-tossed crust.', { vegetarian: true, image: '/menu/pizza-cheese.jpg' }),
+  // 3-topping pizza
+  i('pizza-3top-sm', '3-Topping Pizza — Small', 11.99, 'pizza', 'Cheese base with your choice of three toppings.', { image: '/menu/pizza-3-toppings.jpg' }),
+  i('pizza-3top-md', '3-Topping Pizza — Medium', 13.99, 'pizza', 'Cheese base with your choice of three toppings.', { image: '/menu/pizza-3-toppings.jpg' }),
+  i('pizza-3top-lg', '3-Topping Pizza — Large', 15.99, 'pizza', 'Cheese base with your choice of three toppings.', { image: '/menu/pizza-3-toppings.jpg' }),
+  i('pizza-3top-xl', '3-Topping Pizza — X-Large', 17.99, 'pizza', 'Cheese base with your choice of three toppings.', { image: '/menu/pizza-3-toppings.jpg' }),
+  // 5-topping pizza
+  i('pizza-5top-sm', '5-Topping Pizza — Small', 13.99, 'pizza', 'Cheese base with your choice of five toppings.', { image: '/menu/pizza-5-toppings.jpg' }),
+  i('pizza-5top-md', '5-Topping Pizza — Medium', 15.99, 'pizza', 'Cheese base with your choice of five toppings.', { image: '/menu/pizza-5-toppings.jpg' }),
+  i('pizza-5top-lg', '5-Topping Pizza — Large', 18.99, 'pizza', 'Cheese base with your choice of five toppings.', { image: '/menu/pizza-5-toppings.jpg' }),
+  i('pizza-5top-xl', '5-Topping Pizza — X-Large', 19.99, 'pizza', 'Cheese base with your choice of five toppings.', { image: '/menu/pizza-5-toppings.jpg' }),
+  // Chicken & Paneer pizza
+  i('pizza-chpaneer-sm', 'Chicken & Paneer Pizza — Small', 15.99, 'pizza', 'Loaded with tandoori chicken and paneer.', { spice: 1, image: '/menu/pizza-chicken-paneer.jpg' }),
+  i('pizza-chpaneer-md', 'Chicken & Paneer Pizza — Medium', 18.99, 'pizza', 'Loaded with tandoori chicken and paneer.', { spice: 1, image: '/menu/pizza-chicken-paneer.jpg' }),
+  i('pizza-chpaneer-lg', 'Chicken & Paneer Pizza — Large', 24.99, 'pizza', 'Loaded with tandoori chicken and paneer.', { spice: 1, image: '/menu/pizza-chicken-paneer.jpg' }),
+  i('pizza-chpaneer-xl', 'Chicken & Paneer Pizza — X-Large', 24.99, 'pizza', 'Loaded with tandoori chicken and paneer.', { spice: 1, image: '/menu/pizza-chicken-paneer.jpg' }),
+  // Pizza-menu sides
+  i('butter-chicken-poutine', 'Butter Chicken Poutine', 10.99, 'pizza', 'Fries topped with cheese curds, gravy and butter chicken.', { spice: 1 }),
+  i('poutine', 'Poutine', 9.99, 'pizza', 'Fries topped with cheese curds and rich gravy.', { vegetarian: true }),
+  i('chicken-wings', '7 Chicken Wings', 9.99, 'pizza', 'Seven crispy fried chicken wings with dip.', { spice: 1 }),
+  i('rose-sauce-pasta', 'Rose Sauce Pasta', 12.99, 'pizza', 'Creamy pink-sauce pasta with tomatoes and spices.', { vegetarian: true, spice: 1 }),
+  i('white-sauce-pasta', 'White Sauce Pasta', 13.99, 'pizza', 'Creamy white-sauce pasta with cheese and spices.', { vegetarian: true, spice: 1 }),
+
   // ── Combos ──────────────────────────────────────────────────
   i('combo-a', 'Combo A (1 person)', 24.99, 'combos', 'Onion bhaji, lamb curry, rice, papadum, dessert and drink.', { spice: 2 }),
   i('combo-b', 'Combo B (1 person)', 32.99, 'combos', 'Chicken kabab, butter chicken, rice, papadum, dessert and drink.', { spice: 2 }),
@@ -290,6 +323,9 @@ export const MENU: MenuItem[] = [
   i('combo-cc', 'Le Grand Punjabi (2 people)', 59.99, 'combos', 'Samosa, seekh kabab, chicken tikka masala, lamb bhuna, palak paneer, naan or rice, papadum, dessert and drink for two.', { spice: 2 }),
   i('combo-dd-veggie', 'Végétarien Deluxe (2 people)', 39.99, 'combos', 'Vegetable pakora, onion bhaji, malai kofta, tarka daal, rice, papadum, dessert and drink for two.', { vegetarian: true, spice: 1 }),
   i('family-deal', 'Family Deal (6 people)', 120.99, 'combos', '2 onion bhaji, 6 samosas, chicken tandoori, butter chicken, chicken curry, mixed vegetables, saag aloo, chana masala, 3 rice, 6 naan and dessert.', { spice: 2, signature: true }),
+  i('burger-combo', 'Burger Combo', 11.99, 'combos', '2 veggie-noodle burgers + 2 soft drinks.', { vegetarian: true, image: '/menu/burger-combo.jpg' }),
+  i('pizza-combo-2med', 'Pizza Combo', 33.99, 'combos', '2 medium pizzas + fries + 2 soft drinks.', { image: '/menu/pizza-combo.jpg' }),
+  i('pizza-combo-deluxe', 'Pizza Combo — Paneer or Chicken', 41.99, 'combos', '1 medium pizza + poutine + chicken wings + 2 soft drinks.', { spice: 1, image: '/menu/pizza-combo-deluxe.jpg' }),
 ];
 
 /** Signature dishes featured on the homepage. */

@@ -120,6 +120,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'menu.cat.drinks.desc': 'Lassis, mango shakes, rose milk and masala chai.',
     'menu.cat.extras.desc': 'Raita, salad, chutneys and sides to round it out.',
     'menu.cat.combos.desc': 'Curated combos and family feasts, ready to share.',
+    'menu.cat.pizza.desc': 'Hand-tossed pizzas, poutine, wings and creamy pasta.',
 
     'reviews.eyebrow': 'Kind Words',
     'reviews.h1': 'Loved by Montréal,',
@@ -365,6 +366,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'menu.cat.drinks.desc': 'Lassis, laits frappés à la mangue, lait rose et chai masala.',
     'menu.cat.extras.desc': 'Raita, salade, chutneys et accompagnements.',
     'menu.cat.combos.desc': 'Combos et festins familiaux, prêts à partager.',
+    'menu.cat.pizza.desc': 'Pizzas maison, poutine, ailes de poulet et pâtes crémeuses.',
 
     'reviews.eyebrow': 'Vos mots',
     'reviews.h1': 'Aimé de Montréal,',
