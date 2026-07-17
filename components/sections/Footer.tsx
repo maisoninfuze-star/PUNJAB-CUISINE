@@ -141,6 +141,18 @@ export function Footer() {
           <LiveClock />
           <p>{t('footer.crafted')}</p>
         </div>
+
+        <p className="mt-6 text-center text-xs uppercase tracking-wide text-cream/40">
+          {t('footer.poweredBy')}{' '}
+          <a
+            href="https://b12ventures.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cream/60 transition-colors hover:text-gold"
+          >
+            B12 Internet Ventures
+          </a>
+        </p>
       </div>
     </footer>
   );

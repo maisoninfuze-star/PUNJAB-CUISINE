@@ -148,6 +148,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'footer.explore': 'Explore',
     'footer.visit': 'Visit',
     'footer.crafted': 'Crafted in Montréal',
+    'footer.poweredBy': 'Powered by',
 
     'order.back': 'Back',
     'order.eyebrow': 'Pickup Order',
@@ -394,6 +395,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'footer.explore': 'Explorer',
     'footer.visit': 'Nous trouver',
     'footer.crafted': 'Fait à Montréal',
+    'footer.poweredBy': 'Propulsé par',
 
     'order.back': 'Retour',
     'order.eyebrow': 'Commande pour emporter',
