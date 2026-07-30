@@ -13,7 +13,6 @@ export type Category =
   | 'street-food'
   | 'chicken'
   | 'lamb'
-  | 'beef'
   | 'seafood'
   | 'vegetarian'
   | 'chinese'
@@ -45,7 +44,6 @@ export interface MenuItem {
 export const CATEGORIES: { id: Category; label: string }[] = [
   { id: 'chicken', label: 'Chicken' },
   { id: 'lamb', label: 'Lamb & Goat' },
-  { id: 'beef', label: 'Beef' },
   { id: 'seafood', label: 'Seafood' },
   { id: 'vegetarian', label: 'Vegetarian' },
   { id: 'tandoori', label: 'Tandoori' },
@@ -148,17 +146,6 @@ export const MENU: MenuItem[] = [
   i('goat-korma', 'Goat Korma', 16.99, 'lamb', 'Goat in a mellow, nut-thickened korma.', { spice: 1 }),
   i('special-goat-handi', 'Special Goat Handi', 19.99, 'lamb', 'South Indian goat with peppercorn and curry leaves.', { spice: 3 }),
 
-  // ── Beef ────────────────────────────────────────────────────
-  i('beef-curry', 'Beef Curry', 13.99, 'beef', 'Tender beef slow-cooked in a robust Punjabi curry.', { spice: 2 }),
-  i('beef-vindaloo', 'Beef Vindaloo', 13.99, 'beef', 'Fiery vinegar-and-chilli beef curry.', { spice: 3 }),
-  i('beef-tikka-masala', 'Beef Tikka Masala', 13.99, 'beef', 'Grilled beef in a spiced, cream-finished masala.', { spice: 2 }),
-  i('beef-korma', 'Beef Korma', 13.99, 'beef', 'Beef in a mild, nut-thickened korma.', { spice: 1 }),
-  i('beef-kabab-masala', 'Beef Kabab Masala', 13.99, 'beef', 'Grilled beef kebab in a rich spiced masala.', { spice: 2 }),
-  i('beef-pasanda', 'Beef Pasanda', 16.99, 'beef', 'Beef in a luxurious almond-cream pasanda gravy.', { spice: 1 }),
-  i('beef-chettinad', 'Beef Chettinad', 16.99, 'beef', 'Peppery, aromatic Chettinad-style beef.', { spice: 3 }),
-  i('beef-do-pyaja', 'Beef Do Pyaja', 15.99, 'beef', 'Beef cooked twice with sweet caramelised onions.', { spice: 2 }),
-  i('beef-bangalori', 'Beef Bangalori Pal', 13.99, 'beef', 'Bangalore-style beef in a spiced regional gravy.', { spice: 2 }),
-
   // ── Seafood ─────────────────────────────────────────────────
   i('shrimp-curry', 'Shrimp Curry', 13.99, 'seafood', 'Shrimp in a coriander-rich onion-tomato curry.', { spice: 2 }),
   i('shrimp-saag', 'Shrimp Saag', 13.99, 'seafood', 'Shrimp simmered in a silky spiced spinach gravy.', { spice: 2 }),
@@ -229,7 +216,6 @@ export const MENU: MenuItem[] = [
   i('lamb-biryani', 'Lamb Biryani', 12.99, 'biryani', 'Saffron basmati layered with tender spiced lamb.', { spice: 2 }),
   i('shrimp-biryani', 'Shrimp Biryani', 13.99, 'biryani', 'Saffron basmati layered with spiced shrimp.', { spice: 2 }),
   i('goat-biryani', 'Goat Biryani', 13.99, 'biryani', 'Saffron basmati layered with bone-in goat.', { spice: 2 }),
-  i('beef-biryani', 'Beef Biryani', 13.99, 'biryani', 'Saffron basmati layered with spiced beef.', { spice: 2 }),
   i('veg-biryani', 'Vegetable Biryani', 11.99, 'biryani', 'Saffron basmati layered with spiced seasonal vegetables.', { vegetarian: true, spice: 2 }),
   i('rice', 'White Rice', 3.99, 'biryani', 'Fluffy steamed basmati rice.', { vegetarian: true }),
   i('pulao-rice', 'Pulao Rice', 4.99, 'biryani', 'Basmati rice gently spiced with whole aromatics.', { vegetarian: true }),

@@ -12,7 +12,6 @@ export const CATEGORY_LABELS_FR: Record<Category, string> = {
   'street-food': 'Cuisine de rue',
   chicken: 'Poulet',
   lamb: 'Agneau et chèvre',
-  beef: 'Bœuf',
   seafood: 'Fruits de mer',
   vegetarian: 'Végétarien',
   chinese: 'Indo-chinois',
@@ -123,16 +122,6 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   'goat-korma': { name: 'Korma de chèvre', description: 'Chèvre dans un korma doux et velouté aux noix.' },
   'special-goat-handi': { name: 'Handi de chèvre spécial', description: 'Chèvre à la sud-indienne, poivre et feuilles de curry.' },
 
-  // Beef
-  'beef-curry': { name: 'Cari de bœuf', description: 'Bœuf tendre mijoté dans un cari punjabi robuste.' },
-  'beef-vindaloo': { name: 'Bœuf Vindaloo', description: 'Cari de bœuf ardent au vinaigre et au piment.' },
-  'beef-tikka-masala': { name: 'Bœuf Tikka Masala', description: 'Bœuf grillé dans un masala épicé et crémeux.' },
-  'beef-korma': { name: 'Korma de bœuf', description: 'Bœuf dans un korma doux et velouté aux noix.' },
-  'beef-kabab-masala': { name: 'Bœuf Kabab Masala', description: 'Kebab de bœuf grillé dans un masala riche et épicé.' },
-  'beef-pasanda': { name: 'Bœuf Pasanda', description: 'Bœuf dans une sauce pasanda luxueuse aux amandes et à la crème.' },
-  'beef-chettinad': { name: 'Bœuf Chettinad', description: 'Bœuf style Chettinad, poivré et aromatique.' },
-  'beef-do-pyaja': { name: 'Bœuf Do Pyaja', description: 'Bœuf cuit deux fois avec des oignons caramélisés.' },
-  'beef-bangalori': { name: 'Bœuf Bangalori Pal', description: 'Bœuf style Bangalore dans une sauce régionale épicée.' },
 
   // Seafood
   'shrimp-curry': { name: 'Cari de crevettes', description: 'Crevettes dans un cari d’oignon et tomate riche en coriandre.' },
@@ -199,7 +188,6 @@ export const MENU_FR: Record<string, { name: string; description: string }> = {
   'lamb-biryani': { name: 'Biryani à l’agneau', description: 'Basmati au safran en couches avec agneau tendre épicé.' },
   'shrimp-biryani': { name: 'Biryani aux crevettes', description: 'Basmati au safran en couches avec crevettes épicées.' },
   'goat-biryani': { name: 'Biryani à la chèvre', description: 'Basmati au safran en couches avec chèvre avec os.' },
-  'beef-biryani': { name: 'Biryani au bœuf', description: 'Basmati au safran en couches avec bœuf épicé.' },
   'veg-biryani': { name: 'Biryani aux légumes', description: 'Basmati au safran en couches avec légumes de saison épicés.' },
   'rice': { name: 'Riz vapeur', description: 'Riz basmati vapeur léger et moelleux.' },
   'pulao-rice': { name: 'Riz Pulao', description: 'Riz basmati délicatement parfumé aux aromates entiers.' },
