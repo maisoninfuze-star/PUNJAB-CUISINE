@@ -150,7 +150,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="text-cream/60 transition-colors hover:text-gold"
           >
-            B12 Internet Ventures
+            B12 Ventures
           </a>
         </p>
       </div>
